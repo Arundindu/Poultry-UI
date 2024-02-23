@@ -1,0 +1,40 @@
+.sidebar-container {
+    color: #3c4858;
+    height: 100%;
+
+    span {
+        display: none;
+        white-space: nowrap;
+    }
+
+    &:hover {
+        transition: .2s ease;
+
+        span {
+            display: block;
+        }
+    }
+}
+
+.imageStyle {
+    height: 3rem;
+    background-color: #ebebeb;
+    mix-blend-mode: darken;
+    transform: scaleX(-1);
+    margin-left: 0.7rem;
+}
+
+.title {
+    font-family: IBM Plex Sans, sans-serif;
+    letter-spacing: .16px !important;
+    font-size: large;
+}
+
+.active-menu {
+    background-color: #ebebeb;
+    color: darkgray;
+}
+.menu:hover{
+    background-color: #ebebeb;
+    color: darkgray;
+}

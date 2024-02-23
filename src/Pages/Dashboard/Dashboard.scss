@@ -1,0 +1,11 @@
+.card{
+    min-height: 9.1rem;
+    background-color: dodgerblue !important;
+    color: white !important;
+    font-size: 28px;
+    font-family: auto;
+}
+.cardTransition:hover{
+    font-size: 30px;
+    transition: .1s ease;
+}

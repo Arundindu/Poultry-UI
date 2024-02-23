@@ -1,0 +1,23 @@
+.container {
+    background-color: #ebebeb;
+    color: #3c4858;
+    height: 3rem;
+}
+
+.profile {
+    font-size: .86rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 2px;
+
+    .material-icons {
+        background-color: #3c4858;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+    &:hover {
+        border: 1px solid #3c4858;
+        border-radius: 5px;
+    }
+}

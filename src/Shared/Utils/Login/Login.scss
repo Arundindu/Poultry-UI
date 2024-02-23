@@ -1,0 +1,91 @@
+.circle1 {
+    height: 65px;
+    width: 65px;
+    background: linear-gradient(45deg, #1cbaa6, #74E39A);
+    border-radius: 32px;
+    top: -13px;
+    position: relative;
+    left: -20px;
+}
+
+.circle2 {
+    height: 65px;
+    width: 65px;
+    background: linear-gradient(45deg, #ffd100, #f9ff53);
+    border-radius: 32px;
+    bottom: 81px;
+    position: relative;
+    left: 67%;
+}
+
+.circle3 {
+    height: 65px;
+    width: 53px;
+    background: linear-gradient(45deg, #1cbaa6, #74E39A);
+    border-radius: 0px 11px 0px 51px;
+    top: -15px;
+    position: absolute;
+    right: 0;
+}
+
+.circle4 {
+    height: 65px;
+    width: 65px;
+    background: linear-gradient(45deg, #ffd100, #f9ff53);
+    border-radius: 32px;
+    bottom: 0px;
+    position: absolute;
+    left: 9%;
+}
+
+.circle5 {
+    height: 65px;
+    width: 65px;
+    background: linear-gradient(45deg, #5344ed, #665eb8);
+    border-radius: 50px 0px;
+    bottom: 0px;
+    position: absolute;
+    right: 0;
+}
+
+.circle6 {
+    height: 46px;
+    width: 46px;
+    background: linear-gradient(45deg, #eaeef6, #eaeef6);
+    border-radius: 34px 0px;
+    bottom: 0px;
+    position: absolute;
+    right: 0;
+}
+
+.circle7 {
+    height: 65px;
+    width: 65px;
+    // background: linear-gradient(45deg, #5344ed, #665eb8);
+    background: linear-gradient(45deg, #fff3cd, #c87c7c);
+    border-radius: 32px;
+    top: 75%;
+    position: absolute;
+    left: 77%;
+}
+
+.loginContainer {
+    background-color: #fff;
+    width: 60vw;
+    height: 60vh;
+    left: 20%;
+    right: 20%;
+    position: absolute;
+    bottom: 20%;
+    top: 20%;
+}
+
+.appLogo {
+    height: 35vmin;
+    pointer-events: none;
+    mix-blend-mode: hard-light;
+    transform: scaleX(-1);
+}
+.btnDisabled {
+    cursor: not-allowed !important;
+}
