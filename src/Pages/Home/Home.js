@@ -23,7 +23,9 @@ const Home = () => {
           <div className='row col-md-12 p-0 m-0'>
             <Header dataFromSidebar={dataFromSidebar} />
           </div>
-          <Outlet />
+          <div className='bodyContainer'>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

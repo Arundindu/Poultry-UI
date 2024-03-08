@@ -54,7 +54,7 @@ const SideBar = ({ onAction }) => {
           return (
             <div className={classNames("d-flex align-items-center menu", {
               "active-menu": tab === element.label,
-            })} style={{ height: '2.5rem', paddingLeft: '1rem',cursor:'pointer' }} onClick={() => handleClick(element)}>
+            })} style={{ height: '2.5rem', paddingLeft: '1rem', cursor: 'pointer' }} onClick={() => handleClick(element)}>
               <i className="material-icons">{element['icon']}</i>&nbsp;&nbsp;<span>{element.label}</span>
             </div>
           )

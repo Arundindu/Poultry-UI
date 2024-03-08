@@ -1,20 +1,29 @@
-.body{
+.body {
     height: calc(100vh);
-    .sidebar{
+
+    .sidebar {
         width: 65px;
         z-index: 10;
-        box-shadow: 0 16px 38px -12px rgba(0,0,0,.56), 0 4px 25px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+        box-shadow: 0 16px 38px -12px rgba(0, 0, 0, .56), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
         background-color: #fff;
     }
-    .mainContent{
+
+    .mainContent {
         width: calc(100vw - 3rem);
         background-color: #fff;
     }
 }
-.sidebar:hover{
+
+.sidebar:hover {
     transition: 0.2s ease;
     width: 260px;
-    .mainContent{
+
+    .mainContent {
         width: calc(100vw - 260px);
     }
+}
+
+.bodyContainer {
+    overflow-y: auto;
+    height: calc(100vh - 3rem) !important;
 }

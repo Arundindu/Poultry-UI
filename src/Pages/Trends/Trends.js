@@ -35,7 +35,7 @@ const Trends = () => {
     },
     series: [
       {
-        data: [83, 98, 98, 110, 118, 123, 118],
+        data: [83, 98, 98, 110, 118, 143, 140],
         type: 'line',
         markPoint: {
           data: [
@@ -50,7 +50,7 @@ const Trends = () => {
       feature: {
         saveAsImage: {
           title: 'Save',
-          show: true,
+          show: false,
           name: 'Customer Wise Sales'
         }
       }
