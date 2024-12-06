@@ -1,0 +1,71 @@
+.mainContainer {
+    height: 100%;
+
+    .headerSection {
+        height: 7%;
+    }
+
+    .mainSection {
+        height: 88%;
+        overflow: auto;
+        background-color: #fff;
+        position: relative;
+    }
+
+    .footerSection {
+        height: 5%;
+    }
+}
+
+.logoImageStyle {
+    height: 3rem;
+    background-color: #ebebeb;
+    mix-blend-mode: darken;
+    transform: scaleX(-1);
+}
+
+.bannerContent {
+    width: 27%;
+    right: 5%;
+    top: 10%;
+    background-color: #fff;
+    padding: 5px;
+    border: 2px solid #3c4858;
+    border-radius: 6px;
+    text-align: justify;
+}
+
+
+@media (max-width : 426px) {
+    .logoImageStyle {
+        height: 2rem;
+    }
+
+    .logoBrand {
+        font-size: 1rem !important;
+    }
+
+    .bannerImage {
+        height: 50%;
+    }
+
+    .bannerContent {
+        font-size: 11px;
+        width: 55%;
+        right: 5%;
+        top: 2%;
+        background-color: #fff;
+        padding: 5px;
+        border: 2px solid #3c4858;
+        border-radius: 6px;
+        text-align: justify;
+    }
+
+    .publicCard {
+        font-size: 12px !important;
+    }
+}
+
+.publicCard {
+    font-size: large;
+}

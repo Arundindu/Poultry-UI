@@ -1,5 +1,4 @@
 import React from 'react'
-// import Select from 'react-select';
 import Login from '../Shared/Utils/Login/Login';
 import Dashboard from '../Pages/Dashboard/Dashboard';
 import Signup from '../Shared/Utils/Signup/Signup'
@@ -9,53 +8,41 @@ import Gallery from '../Pages/Gallery/Gallery'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import './App.scss';
 import Home from '../Pages/Home/Home'
+import Diseases from '../Pages/Diseases/Diseases';
+import About from '../Pages/About/About';
+import Configuration from '../Pages/Configurations/Configuration';
+import Public from '../Public/Public';
+import Loader from '../Shared/Utils/Loader/Loader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  // const [options, setData] = useState([
-  //   { value: 'option1', label: 'Option 1' },
-  //   { value: 'option2', label: 'Option 2' },
-  // ])
-  // const [selectedOption, setSelectedOption] = useState(null);
-
-  // const handleSelectChange = (selectedOption) => {
-  //   setSelectedOption(selectedOption);
-  //   console.log(`Option selected:`, selectedOption);
-  // };
   return (
     <>
+      <Loader />
+      <ToastContainer />
+      <BrowserRouter></BrowserRouter>
       <div className="App" data-test="app-container">
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Navigate to="/login" />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signUp' element={<Signup />} />
-            <Route path="/home" element={<Home />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="trends" element={<Trends />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="gallery" element={<Gallery />} />
+            <Route path='/' element={<Navigate to="/Public" />} />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Public' element={<Public />} />
+            <Route path='/SignUp' element={<Signup />} />
+            <Route path="/Home" element={<Home />}>
+              <Route path="Dashboard" element={<Dashboard />} />
+              <Route path="About" element={<About />} />
+              <Route path="Trends" element={<Trends />} />
+              <Route path="Settings" element={<Settings />} />
+              <Route path="Gallery" element={<Gallery />} />
+              <Route path="Diseases" element={<Diseases />} />
+              <Route path="Configurations" element={<Configuration />} />
+              {/* <Route path="configurations/:id" element={<Configuration />} /> */}
             </Route>
           </Routes>
         </BrowserRouter>
       </div>
     </>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <div className='row col-12'>
-    //       <h3>Inputs</h3>
-    //       <div className='col-4'>Tesing</div>
-    //       <div className='col-4'>Tesing Purpose</div>
-    //     </div>
-    //     <div className='row col-12'>
-    //       <Select className='col-3'
-    //         options={options}
-    //         value={selectedOption}
-    //         onChange={handleSelectChange}
-    //       />
-    //     </div>
-    //   </header>
-    // </div>
   );
 }
 

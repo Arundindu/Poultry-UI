@@ -1,0 +1,96 @@
+td {
+    height: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+}
+
+th {
+    width: 180px;
+}
+
+table {
+    table-layout: fixed;
+    display: table;
+}
+
+table thead,
+table tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+thead {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+tbody {
+    width: 100%;
+    flex: 1 1 auto;
+
+}
+
+table tbody tr {
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+    flex-flow: column;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.virtualTable {
+    width: 100%;
+    overflow: auto;
+}
+
+.virtualTable table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+    flex-flow: column;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+th,
+td {
+    width: 180px;
+}
+
+th {
+    cursor: pointer;
+}
+
+.virtualTable thead {
+    position: sticky;
+    top: 0;
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+.virtualTable tbody {
+    width: 100%;
+    flex: 1 1 auto;
+    display: block;
+}
+
+.virtualTable table tbody tr {
+    width: 100%;
+}
+
+.virtualTable table thead,
+.virtualTable table tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+.slNoCol{
+    width: 75px !important;
+}

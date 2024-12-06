@@ -7,12 +7,27 @@
         white-space: nowrap;
     }
 
-    &:hover {
-        transition: .2s ease;
+    // &:hover {
+    //     transition: .2s ease;
 
-        span {
-            display: block;
-        }
+    //     span {
+    //         display: block;
+    //     }
+    // }
+}
+.bottomBar-container{
+    color: #3c4858;
+    height: 100%;
+
+    span {
+        display: none;
+        white-space: nowrap;
+    }
+}
+.activeBar{
+    transition: .2s ease;
+    span {
+        display: block;
     }
 }
 
@@ -33,6 +48,7 @@
 .active-menu {
     background-color: #ebebeb;
     color: darkgray;
+    font-weight: 600;
 }
 .menu:hover{
     background-color: #ebebeb;

@@ -1,0 +1,9 @@
+.responsive-width {
+    width: 25% !important;
+}
+
+@media (max-width: 426px) {
+    .responsive-width {
+        width: 50% !important;
+    }
+}

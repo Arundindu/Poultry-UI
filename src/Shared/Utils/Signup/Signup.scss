@@ -2,25 +2,22 @@
     height: 100vh;
     width: 100vw;
 }
+
 .formContainer {
     background-color: #fff;
-    // height: 65vh;
     border-radius: 10px;
 }
-.imageLogo{
+
+.imageLogo {
     height: 15vh;
     width: 15vh !important;
     pointer-events: none;
     mix-blend-mode: hard-light;
     transform: scaleX(-1);
 }
-.signUpHeader{
-    // font: 400 24px/32px Roboto,Helvetica Neue,sans-serif;
-    font-size: 33px!important;
-    font-weight: 700!important;
-    // font-family: ORBITRON FAMILY,sans-serif!important;
-    font-family: plexsans-regular, sans-serif;
-    // margin-bottom: 2rem!important;
+
+.signUpHeader {
+    font-family: auto;
     color: #3c4858;
 }
 
@@ -29,7 +26,7 @@
     position: relative;
     top: 39%;
     border-radius: 50%;
-    border: 30px solid #02153d;
+    border: 30px solid #3c4858;
     width: fit-content;
     background-color: #fff;
 }
@@ -38,5 +35,18 @@
     border-radius: 50%;
     border: 25px solid #fff;
     height: 100%;
-  }
-  
+}
+
+@media (max-width:426px) {
+    .borderContainer {
+        left: auto;
+        top: auto;
+        margin: auto;
+    }
+}
+
+.mobileSignup {
+    border: 2px solid;
+    border-radius: 10px;
+    box-shadow: inset #3c4858 0px 1px 2px 0px;
+}

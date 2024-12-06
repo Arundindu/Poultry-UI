@@ -78,6 +78,7 @@
     position: absolute;
     bottom: 20%;
     top: 20%;
+    font-family: auto;
 }
 
 .appLogo {
@@ -86,6 +87,22 @@
     mix-blend-mode: hard-light;
     transform: scaleX(-1);
 }
+
 .btnDisabled {
     cursor: not-allowed !important;
+}
+
+@media (max-width : 426px) {
+    .appLogo {
+        height: 12vh !important;
+    }
+
+    .loginContainer {
+        position: fixed;
+        width: auto;
+        height: auto;
+        left: auto;
+        right: auto;
+    }
+
 }
