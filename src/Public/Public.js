@@ -13,21 +13,21 @@ const Public = () => {
   const routeToLogin = () => {
     navigate('/Login')
 
-    ServiceUtils.getRequest('asset-dashboard').then((_response) => {
-      try {
-        if (_response.status === 200 && _response.data) {
-          let responseData = JSON.parse(JSON.stringify(_response.data));
-          let assetStyle = [];
-          responseData.forEach((element) => {
-            console.log(element)
-          })
-        } else {
-          Toaster.error(_response?.data?.message || "Error while processing...! Try again after sometime..!")
-        }
-      } catch (error) {
-        Toaster.error(_response?.data?.message || "Error while processing...! Try again after sometime..!")
-      }
-    })
+    // ServiceUtils.getRequest('asset-dashboard').then((_response) => {
+    //   try {
+    //     if (_response.status === 200 && _response.data) {
+    //       let responseData = JSON.parse(JSON.stringify(_response.data));
+    //       let assetStyle = [];
+    //       responseData.forEach((element) => {
+    //         console.log(element)
+    //       })
+    //     } else {
+    //       Toaster.error(_response?.data?.message || "Error while processing...! Try again after sometime..!")
+    //     }
+    //   } catch (error) {
+    //     Toaster.error(_response?.data?.message || "Error while processing...! Try again after sometime..!")
+    //   }
+    // })
   }
 
   return (

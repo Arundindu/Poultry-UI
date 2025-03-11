@@ -105,6 +105,10 @@ a {
   width: 100%;
 }
 
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
 @media (max-width : 426px) {
   .pageContainer {
     max-height: calc(100vh - 16%);
@@ -168,10 +172,15 @@ a {
 }
 
 .modal {
-  display:'flex';
+  display: 'flex';
   background-color: #00000042;
 }
 
-.modal-dialog{
-  max-width: 700px !important;
+.modal-dialog {
+  max-width: 75vw !important;
+}
+
+.modal-body {
+  overflow-y: auto;
+  max-height: 65vh;
 }

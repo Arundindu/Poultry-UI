@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Table.scss';
 
-const Table = () => {
+const Table = ({ data, onDataEmit }) => {
   const tableData = {
     headerContent: [
       {
@@ -357,10 +357,10 @@ const Table = () => {
     last_update_time: '',
     dataLoggerIds: '',
   });
-  const [filteredData, setFilteredData] = useState(tableData.bodyContent);
+  const [filteredData, setFilteredData] = useState(data?.bodyContent);
 
   useEffect(() => {
-    const filtered = tableData.bodyContent.filter((item) =>
+    const filtered = data?.bodyContent.filter((item) =>
       Object.keys(filters).every((key) =>
         filters[key] === '' ||
         (item[key] && item[key]
@@ -384,12 +384,19 @@ const Table = () => {
     setFilters({ ...filters, [key]: event.target.value });
   };
 
-  const maxRows = 9;
+  const maxRows = 10;
   const [isVisible, setIsVisible] = useState(false);
   const handleToggle = (event) => {
     event.preventDefault();
-    console.log(isVisible, event)
     setIsVisible(!isVisible);
+  };
+
+  const emitDataToParent = (body, type) => {
+    const dataToEmit = {
+      data: body,
+      type: type
+    };
+    onDataEmit(dataToEmit);
   };
 
   return (
@@ -398,21 +405,17 @@ const Table = () => {
         <button className='btn btn-primary w-auto' style={{ marginRight: '10px' }} onClick={handleToggle}>
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
-        <input
-          type='text'
-          className='form-control w-25'
-          placeholder='Search...'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
+        <input type='text' className='form-control w-25' placeholder='Search...' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </div>
       <div className='virtualTable'>
         <table className='table table-borderless table-striped table-hover'>
           <thead className='table-dark'>
             <tr className='table-th'>
               <th scope='col' className='align-baseline slNoCol' style={{ width: '75px' }}>Sl.No</th>
-              {tableData.headerContent.map((element) => (
+              {data?.actions && Object.keys(data.actions).length > 0 &&
+                <th scope='col' className='align-baseline actionCol'>Actions</th>
+              }
+              {data?.headerContent.map((element) => (
                 element && !element.hidden ? (
                   <th key={element.key}>
                     {element.label}
@@ -431,10 +434,29 @@ const Table = () => {
             </tr>
           </thead>
           <tbody style={{ maxHeight: maxRows * 2.5 + 'rem' }}>
-            {filteredData && filteredData.length > 0 ? filteredData.map((body, index) => (
+            {filteredData && filteredData?.length > 0 ? filteredData?.map((body, index) => (
               <tr key={index}>
                 <td className='slNoCol' style={{ width: '75px' }}>{index + 1}</td>
-                {tableData.headerContent.map(
+                {data?.actions && Object.keys(data.actions).length > 0 &&
+                  <td className='actionCol'>
+                    {data.actions.view && (
+                      <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
+                        <i className="fa fa-eye" aria-hidden="true" onClick={() => emitDataToParent(body, 'view')}></i>
+                      </button>
+                    )}
+                    {data.actions.edit && (
+                      <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
+                        <i className="fa fa-edit" aria-hidden="true" onClick={() => emitDataToParent(body, 'edit')}></i>
+                      </button>
+                    )}
+                    {data.actions.delete && (
+                      <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
+                        <i className="fa fa-trash" aria-hidden="true" onClick={() => emitDataToParent(body, 'delete')}></i>
+                      </button>
+                    )}
+                  </td>
+                }
+                {data?.headerContent.map(
                   (head) =>
                     !head.hidden && (
                       <td key={head.key} title={body[head.key]}>
@@ -448,7 +470,7 @@ const Table = () => {
           </tbody>
         </table>
       </div>
-      <div className='float-end'>Total Records: {filteredData.length}</div>
+      <div className='float-end'>Total Records: {filteredData?.length ? filteredData?.length : 0}</div>
     </>
   );
 };

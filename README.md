@@ -68,3 +68,48 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+<!-- 
+
+JSON FORMAT FOR DYNAMIC FORM
+
+
+[
+    {
+      "key": "date",
+      "label": "Date",
+      "type": "date",
+      "placeholder": "Select Date",
+      "required": true
+    },
+    {
+      "key": "price",
+      "label": "Birds Price",
+      "type": "number",
+      "placeholder": "Enter Price",
+      "required": true,
+      "value": "123"
+    },
+    {
+      "key": "test",
+      "label": "Birds",
+      "type": "select",
+      "placeholder": "Select Price",
+      "options": [
+        { value: 'option1', label: 'Option 1' },
+        { value: 'option2', label: 'Option 2' },
+        { value: 'option3', label: 'Option 3' }
+      ],
+      "required": true,
+      "value": "option1"
+    },
+    {
+      "key": "save",
+      "label": "Save",
+      "type": "btn"
+    }
+  ]
+
+ -->

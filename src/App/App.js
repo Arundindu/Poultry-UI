@@ -37,7 +37,7 @@ function App() {
               <Route path="Gallery" element={<Gallery />} />
               <Route path="Diseases" element={<Diseases />} />
               <Route path="Configurations" element={<Configuration />} />
-              {/* <Route path="configurations/:id" element={<Configuration />} /> */}
+              {/* <Route path="Configurations/:id" element={<Configuration />} /> */}
             </Route>
           </Routes>
         </BrowserRouter>

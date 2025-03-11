@@ -62,6 +62,7 @@ table {
 th,
 td {
     width: 180px;
+    text-align: center !important;
 }
 
 th {
@@ -93,4 +94,7 @@ th {
 
 .slNoCol{
     width: 75px !important;
+}
+.actionCol{
+    width: 80px !important;
 }

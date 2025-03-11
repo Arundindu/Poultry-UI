@@ -166,7 +166,7 @@ const Login = () => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-primary" onClick={onActivate}>Activate</button>
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModalAndNavigate}>Close</button>
+                                <button type="button" className="btn btn-outline-secondary" data-dismiss="modal" onClick={closeModalAndNavigate}>Close</button>
                             </div>
                         </div>
                     </div>

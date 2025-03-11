@@ -31,7 +31,8 @@ const Header = ({ dataFromSidebar }) => {
     sessionStorage.clear()
   }
   const userManual = () => {
-    // navigate('/configurations')
+    // navigate('/Configurations')
+    window.open('/',"_blank")
   }
   const deactivateUser = () => {
     const payload = {
@@ -74,16 +75,18 @@ const Header = ({ dataFromSidebar }) => {
   const addTab = () => {
     try {
       const payload = {
-        data: data,
-        type: 'add'
+        tabs: data,
+        type: 'add',
+        userName: localStorage.getItem('userName')
       }
-      ServiceUtils.postRequest("", payload).then((responseData) => {
+      ServiceUtils.postRequest("addSettingTab", payload).then((responseData) => {
         let response = JSON.parse(window.atob(responseData.data))
         if (response.status === 'success') {
           setData([{
             key: '',
             label: ''
           }])
+          setShowModal(false);
           Toaster.success(response.message || "Success");
         } else {
           Toaster.error(response.message || "Error");
@@ -165,7 +168,7 @@ const Header = ({ dataFromSidebar }) => {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-primary" onClick={addTab}>Add</button>
-                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModalAndNavigate}>Close</button>
+                <button type="button" className="btn btn-outline-secondary" data-dismiss="modal" onClick={closeModalAndNavigate}>Close</button>
               </div>
             </div>
           </div>

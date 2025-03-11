@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [latitude, setLatitude] = useState(13.8364);
   const [longitude, setLongitude] = useState(78.9315);
   const [zoom, setZoom] = useState(14);
+  // const [dashboardItems,setDashboardItems]=useState([]);
 
   useEffect(() => {
     if (mapRef.current === null) {
