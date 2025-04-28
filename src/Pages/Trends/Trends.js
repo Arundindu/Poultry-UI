@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Trends.scss';
 import * as echarts from 'echarts';
+import { ServiceUtils } from '../../Shared/Utils/ServiceUtils'
+import Toaster from '../../Shared/Utils/Toaster';
 
 const Trends = () => {
   const lineChartRef = useRef(null);
@@ -9,8 +11,7 @@ const Trends = () => {
   const [lineChart, setLineChart] = useState(null);
   const [barChart, setBarChart] = useState(null);
   const [chickChart, setChickChart] = useState(null);
-
-  const lineChartOption = {
+  const [lineChartOption, setLineChartOption] = useState({
     title: {
       text: 'Market Trend',
       left: 'center'
@@ -27,10 +28,13 @@ const Trends = () => {
     },
     xAxis: {
       type: 'category',
-      data: ['20-01-24', '21-01-24', '22-01-24', '23-01-24', '24-01-24', '25-01-24', '26-1-24'],
+      data: [],
       name: 'Date',
       nameLocation: 'middle',
-      nameGap: '30'
+      nameGap: '30',
+      axisTick:{
+        alignWithLabel:true
+      }
     },
     yAxis: {
       type: 'value',
@@ -40,7 +44,7 @@ const Trends = () => {
     },
     series: [
       {
-        data: [83, 98, 98, 110, 118, 123, 118],
+        data: [],
         type: 'line',
         markPoint: {
           data: [
@@ -50,8 +54,8 @@ const Trends = () => {
       }
     ],
     responsive: true
-  };
-  const chickTrendOption = {
+  });
+  const [chickTrendOption, setChickTrendOption] = useState({
     title: {
       text: 'Chick Trend',
       left: 'center'
@@ -68,10 +72,13 @@ const Trends = () => {
     },
     xAxis: {
       type: 'category',
-      data: ['20-01-24', '21-01-24', '22-01-24', '23-01-24', '24-01-24', '25-01-24', '26-1-24'],
+      data: [],
       name: 'Date',
       nameLocation: 'middle',
-      nameGap: '30'
+      nameGap: '30',
+      axisTick:{
+        alignWithLabel:true
+      }
     },
     yAxis: {
       type: 'value',
@@ -81,7 +88,7 @@ const Trends = () => {
     },
     series: [
       {
-        data: [23, 43, 41, 30, 33, 23, 18],
+        data: [],
         type: 'line',
         markPoint: {
           data: [
@@ -91,13 +98,13 @@ const Trends = () => {
       }
     ],
     responsive: true
-  };
-  const barChartOption = {
+  });
+  const [barChartOption, setBarChartOption] = useState({
     toolbox: {
       feature: {
         saveAsImage: {
           title: 'Save',
-          show: true,
+          show: false,
           name: 'Customer Wise Sales'
         }
       }
@@ -140,7 +147,10 @@ const Trends = () => {
         },
         name: 'Total No. of Hens',
         nameLocation: 'middle',
-        nameGap: 30
+        nameGap: 30,
+        axisTick:{
+          alignWithLabel:true
+        }
       }
     ],
     yAxis: [
@@ -164,7 +174,59 @@ const Trends = () => {
       }
     ],
     responsive: true
-  };
+  });
+
+  const getMarketData = (data) => {
+    const payload = {
+      userName: localStorage.getItem("userName"),
+      data: data
+    }
+    ServiceUtils.postRequest('marketTrend', payload).then((response) => {
+      if (response.status === 'success') {
+        setLineChartOption(prevState => ({
+          ...prevState,
+          xAxis: {
+            ...prevState.xAxis,
+            data: response.data.date
+          },
+          series: [
+            {
+              ...prevState.series[0],
+              data: response.data.seriesData
+            }
+          ]
+        }));
+      } else {
+        Toaster.error(response.message || "Error");
+      }
+    });
+  }
+
+  const getChickData = (data) => {
+    const payload = {
+      userName: localStorage.getItem("userName"),
+      data: data
+    }
+    ServiceUtils.postRequest('chickTrend', payload).then((response) => {
+      if (response.status === 'success') {
+        setChickTrendOption(prevState => ({
+          ...prevState,
+          xAxis: {
+            ...prevState.xAxis,
+            data: response.data.date
+          },
+          series: [
+            {
+              ...prevState.series[0],
+              data: response.data.seriesData
+            }
+          ]
+        }));
+      } else {
+        Toaster.error(response.message || "Error");
+      }
+    });
+  }
 
   const resizeCharts = () => {
     if (lineChart) {
@@ -177,6 +239,12 @@ const Trends = () => {
       chickChart.resize();
     }
   };
+
+  useEffect(() => {
+    getMarketData();
+    getChickData();
+    // getMarketData();
+  }, []);
 
   useEffect(() => {
     if (lineChartRef.current && barChartRef.current && chickChartRef.current) {
@@ -199,7 +267,7 @@ const Trends = () => {
         chickChartInstance.dispose();
       };
     }
-  }, []);
+  }, [lineChartOption, barChartOption, chickTrendOption]);
 
   return (
     <div className='pageContainer'>

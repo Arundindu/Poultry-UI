@@ -33,11 +33,10 @@ export const API_ENDPOINTS = {
   'diseasesTableData': 'diseasesTableData',
   'diseasesList': 'diseasesList',
   'deleteSettingsTabDetails': 'deleteSettingsTabDetails',
-  'downloadAssetPreview': 'downloadAssetPreview',
-  'assetBulkInsert': 'AssetBulkInsert',
-  'assetUsers': 'AssetUsers',
-  'viewCheckList': 'ViewCheckList',
-  'checkOutAssets': 'CheckOutAssets'
+  'marketTrend': 'marketTrend',
+  'chickTrend': 'chickTrend',
+  'blockedUsersTableData': 'blockedUsersTableData',
+  'unBlockUser': 'unBlockUser',
 };
 
 export const API_ENVIRONMENT = {
@@ -70,8 +69,10 @@ export const API_ENVIRONMENT = {
   'diseasesTableData': 'dev',
   'diseasesList': 'dev',
   'deleteSettingsTabDetails': 'dev',
-  'viewCheckList': 'dev',
-  'checkOutAssets': 'dev'
+  'marketTrend': 'dev',
+  'chickTrend': 'dev',
+  'blockedUsersTableData': 'dev',
+  'unBlockUser': 'dev',
 };
 
 export const MESSAGES = {

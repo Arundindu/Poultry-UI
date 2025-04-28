@@ -13,8 +13,7 @@ const Settings = () => {
     const payload = {
       userName: localStorage.getItem("userName")
     }
-    ServiceUtils.postRequest("fetchSettingTabData", payload).then((responseData) => {
-      let response = JSON.parse(window.atob(responseData.data))
+    ServiceUtils.postRequest("fetchSettingTabData", payload).then((response) => {
       if (response.status === 'success') {
         setTabKeys(response.tabData);
         setFilterTabKeys(response.tabData);

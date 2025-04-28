@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { ServiceUtils } from '../../Shared/Utils/ServiceUtils';
 import Toaster from '../../Shared/Utils/Toaster';
 import Modal from '../../Shared/Modal/Modal';
+import './Configuration.scss'
 
 const Configuration = () => {
   const navigate = useNavigate();
@@ -30,8 +31,10 @@ const Configuration = () => {
       data: data
     }
     let serviceName = payload.tabName
-    ServiceUtils.postRequest(serviceName + 'Data', payload).then((responseData) => {
-      let response = JSON.parse(window.atob(responseData.data))
+    ServiceUtils.postRequest(serviceName + 'Data', payload).then((response) => {
+      if (showModal) {
+        setShowModal(false)
+      }
       if (response.status === 'success') {
         setFormJson(response.tabData);
         Toaster.success(response.message || "Success");
@@ -53,8 +56,7 @@ const Configuration = () => {
       tabName: details.key
     }
     sessionStorage.setItem('configurationTab', details.key)
-    ServiceUtils.postRequest("tabJsonData", payload).then((responseData) => {
-      let response = JSON.parse(window.atob(responseData.data))
+    ServiceUtils.postRequest("tabJsonData", payload).then((response) => {
       if (response.status === 'success') {
         setFormJson(response.tabData);
       } else {
@@ -68,10 +70,10 @@ const Configuration = () => {
       userName: localStorage.getItem("userName"),
       tabName: details.key
     }
-    ServiceUtils.postRequest(details.key + "TableData", payload).then((responseData) => {
-      let response = JSON.parse(window.atob(responseData.data))
+    ServiceUtils.postRequest(details.key + "TableData", payload).then((response) => {
       if (response.status === 'success') {
         setTableData(response.tableData);
+        console.log(tableData)
       } else {
         Toaster.error(response.message || "Error");
       }
@@ -101,8 +103,29 @@ const Configuration = () => {
         userName: localStorage.getItem('userName'),
         tabName: sessionStorage.getItem('configurationTab')
       }
-      ServiceUtils.postRequest("deleteSettingsTabDetails", payload).then((responseData) => {
-        let response = JSON.parse(window.atob(responseData.data))
+      ServiceUtils.postRequest("deleteSettingsTabDetails", payload).then((response) => {
+        if (response.status === 'success') {
+          setShowModal(false);
+          getTableData();
+          Toaster.success(response.message || "Success");
+        } else {
+          Toaster.error(response.message || "Error");
+        }
+      });
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const onUnblock = () => {
+    try {
+      console.log(tableEmittedData)
+      const payload = {
+        data: tableEmittedData.data,
+        type: tableEmittedData.type,
+        userName: localStorage.getItem('userName'),
+        tabName: sessionStorage.getItem('configurationTab')
+      }
+      ServiceUtils.postRequest("unBlockUser", payload).then((response) => {
         if (response.status === 'success') {
           setShowModal(false);
           getTableData();
@@ -119,10 +142,17 @@ const Configuration = () => {
   return (
     <>
       <div className='pageContainer m-1'>
-        <span className='cursor-pointer' onClick={() => routeToSettings()}><i class="fa fa-arrow-left" aria-hidden="true"></i> {"Settings/"}{sessionStorage.getItem('configurationTab')}</span>
+        <span className='cursor-pointer underline' onClick={() => routeToSettings()}><i class="fa fa-arrow-left" aria-hidden="true"></i> {"Settings/"}{sessionStorage.getItem('configurationTab')}</span>
         {details.key && formJson && formJson.length > 0 && (
           <>
-            <DyanmicForm formData={formJson} onSubmit={getData} />
+            {formJson?.length > 0 && (
+              <DyanmicForm formData={formJson} onSubmit={getData} />
+            )}
+            {/* <DyanmicForm formData={formJson} onSubmit={getData} /> */}
+          </>
+        )}
+        {details.key && tableData && tableData.headerContent && tableData.headerContent.length > 0 && (
+          <>
             {tableData && tableData.headerContent && tableData.headerContent.length > 0 &&
               <Table key={JSON.stringify(tableData)} data={tableData} onDataEmit={handleTableDataEmit} />
             }
@@ -135,7 +165,7 @@ const Configuration = () => {
           <div className="modal-dialog w-100 d-flex align-items-center">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">{tableEmittedData.type === 'view' ? 'View' : tableEmittedData.type === 'edit' ? 'Edit' : 'Delete'}</h5>
+                <h5 className="modal-title">{tableEmittedData.type === 'view' ? 'View' : tableEmittedData.type === 'edit' ? 'Edit' : tableEmittedData.type === 'unblock' ? 'Unblock' : 'Delete' }</h5>
                 <button type="button" className="close btn-group" data-dismiss="modal" aria-label="Close" onClick={closeModalAndNavigate}>
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -149,6 +179,9 @@ const Configuration = () => {
                 {tableEmittedData.type === 'delete' &&
                   <p>Are you sure you want to delete {tableEmittedData.data.date}?</p>
                 }
+                {tableEmittedData.type === 'unblock' &&
+                  <p>Are you sure you want to unblock the user {tableEmittedData.data.userName}?</p>
+                }
               </div>
               <div className="modal-footer">
                 {tableEmittedData && tableEmittedData.type === 'edit' &&
@@ -156,6 +189,9 @@ const Configuration = () => {
                 }
                 {tableEmittedData && tableEmittedData.type === 'delete' &&
                   <button type="button" className="btn btn-outline-danger" onClick={onDelete}>Delete</button>
+                }
+                {tableEmittedData && tableEmittedData.type === 'unblock' &&
+                  <button type="button" className="btn btn-outline-info" onClick={onUnblock}>Unblock</button>
                 }
                 <button type="button" className="btn btn-outline-secondary" data-dismiss="modal" onClick={closeModalAndNavigate}>Close</button>
               </div>

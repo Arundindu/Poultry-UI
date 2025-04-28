@@ -20,8 +20,7 @@ const Signup = () => {
     e.preventDefault();
     const payload = signupData
     if (signupData.userName && signupData.eMail && signupData.mobile && signupData.password) {
-      ServiceUtils.postRequest("addUser", payload).then((responseData) => {
-        let response = JSON.parse(window.atob(responseData.data))
+      ServiceUtils.postRequest("addUser", payload).then((response) => {
         if (response.status === 'success') {
           Toaster.success(response.message || "Success");
           navigate('/Login')

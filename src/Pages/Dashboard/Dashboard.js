@@ -77,8 +77,19 @@ const Dashboard = () => {
     // Map View
     L.tileLayer.wms(leafletMapImg, wmsLayerOptions, { attribution: 'Tiles © Esri — Source: Esri, DeLorme, NAVTEQ', maxZoom: 18 }).addTo(map);
 
-    // Satellite View
+    // Bhuvan Maps
+    // L.tileLayer
+    //   .wms("https://bhuvan-vec1.nrsc.gov.in/bhuvan/gwc/service/wms/", {
+    //     LAYERS: "vehitrack",
+    //     SERVICE: "WMS",
+    //     VERSION: "1.1.1",
+    //     REQUEST: "GetMap",
+    //     STYLES: "",
+    //     FORMAT: "image/png",
+    //   })
+    //   .addTo(map);
 
+    // Satellite View
     // const esriLayer = L.tileLayer(
     //   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     //   {

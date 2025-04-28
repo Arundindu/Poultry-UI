@@ -4,6 +4,7 @@ import hen from './../../../Assets/Images/hen.jpg';
 import { useNavigate } from 'react-router';
 import Toaster from '../Toaster';
 import { ServiceUtils } from '../ServiceUtils';
+import * as CryptoJS from 'crypto-js';
 
 const Login = () => {
     const [data, setData] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
     })
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false);
+    // const [showPassword, setShowPassword] = useState(false);
 
     const changeHandler = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
@@ -19,19 +21,49 @@ const Login = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        const payload = data
-        ServiceUtils.postRequest("userLogin", payload).then((responseData) => {
-            let response = JSON.parse(window.atob(responseData.data))
+        let encodedDetails = JSON.parse(JSON.stringify(data))
+        // AES
+        // encodedDetails.password = encryptPasswordWithUsername(encodedDetails.password, data.userName, 'token')
+        const payload = encodedDetails
+        ServiceUtils.postRequest("userLogin", payload).then((response) => {
             if (response.status === 'success') {
                 localStorage.setItem('userName', data.userName)
                 navigate('/Home/Dashboard')
-            } else if(response.status === 'InActive'){
+            } else if (response.status === 'InActive') {
                 setShowModal(true);
                 Toaster.info(response.message || "Success");
             } else {
                 Toaster.error(response.message || "Error");
             }
         });
+    }
+
+    const encryptPasswordWithUsername = (encData, username, token = null) => {
+        try {
+            let tokenFromUI = ''
+            if (token) {
+                tokenFromUI = getFirstThreeCharacters(username) + token;
+            }
+            const key = CryptoJS.enc.Utf8.parse(tokenFromUI);
+            const iv = CryptoJS.lib.WordArray.random(16);
+            const encrypted = CryptoJS.AES.encrypt(encData, key, {
+                iv,
+            });
+            return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+        } catch (error) {
+            console.error(error);
+            return null
+        }
+    }
+    const getFirstThreeCharacters = (username) => {
+        let three = '';
+        const len = username.length;
+        if (len <= 3) {
+            three = username + ('a'.repeat(3 - len));
+        } else {
+            three = username.slice(0, 3);
+        }
+        return three;
     }
 
     const goToPublicPage = () => {
@@ -56,10 +88,9 @@ const Login = () => {
 
     const onActivate = () => {
         const payload = {
-            userName:data.userName
+            userName: data.userName
         }
-        ServiceUtils.postRequest("activateUser", payload).then((responseData) => {
-            let response = JSON.parse(window.atob(responseData.data))
+        ServiceUtils.postRequest("activateUser", payload).then((response) => {
             if (response.status === 'success') {
                 setShowModal(false);
                 localStorage.setItem('userName', data.userName)
@@ -100,6 +131,19 @@ const Login = () => {
                                         <form onSubmit={submitHandler}>
                                             <input className='form-control my-2' placeholder='Username' type='text' name='userName' id='userName' onChange={changeHandler} />
                                             <input className='form-control my-2' placeholder='Password' type='password' name='password' id='password' onChange={changeHandler} />
+                                            {/* <input className='form-control my-2' placeholder='Password' type={showPassword ? 'text' : 'password'} name='password' id='password' onChange={changeHandler} />
+                                            <i
+                                                className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                style={{
+                                                    position: 'absolute',
+                                                    right: '50px',
+                                                    top: '51%',
+                                                    transform: 'translateY(-50%)',
+                                                    cursor: 'pointer',
+                                                    color: '#333'
+                                                }}
+                                            ></i> */}
                                             <input type="submit" value="Login" className={`btn btn-primary col-12 mt-4 ${buttonClass}`} disabled={isFormIncomplete} />
                                         </form>
                                         <div className='col-12 d-flex justify-content-between'>

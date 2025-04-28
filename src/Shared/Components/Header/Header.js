@@ -38,8 +38,7 @@ const Header = ({ dataFromSidebar }) => {
     const payload = {
       userName: localStorage.getItem('userName')
     }
-    ServiceUtils.postRequest("deActivateUser", payload).then((responseData) => {
-      let response = JSON.parse(window.atob(responseData.data))
+    ServiceUtils.postRequest("deActivateUser", payload).then((response) => {
       if (response.status === 'success') {
         navigate('/Login')
         Toaster.success(response.message || "Success");
@@ -53,8 +52,7 @@ const Header = ({ dataFromSidebar }) => {
       const payload = {
         userName: localStorage.getItem('userName')
       }
-      ServiceUtils.postRequest("deleteUser", payload).then((responseData) => {
-        let response = JSON.parse(window.atob(responseData.data))
+      ServiceUtils.postRequest("deleteUser", payload).then((response) => {
         if (response.status === 'success') {
           navigate('/Login')
           Toaster.success(response.message || "Success");
@@ -79,8 +77,7 @@ const Header = ({ dataFromSidebar }) => {
         type: 'add',
         userName: localStorage.getItem('userName')
       }
-      ServiceUtils.postRequest("addSettingTab", payload).then((responseData) => {
-        let response = JSON.parse(window.atob(responseData.data))
+      ServiceUtils.postRequest("addSettingTab", payload).then((response) => {
         if (response.status === 'success') {
           setData([{
             key: '',

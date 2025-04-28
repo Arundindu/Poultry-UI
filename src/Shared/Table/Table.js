@@ -360,6 +360,7 @@ const Table = ({ data, onDataEmit }) => {
   const [filteredData, setFilteredData] = useState(data?.bodyContent);
 
   useEffect(() => {
+    console.log(data)
     const filtered = data?.bodyContent.filter((item) =>
       Object.keys(filters).every((key) =>
         filters[key] === '' ||
@@ -452,6 +453,11 @@ const Table = ({ data, onDataEmit }) => {
                     {data.actions.delete && (
                       <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
                         <i className="fa fa-trash" aria-hidden="true" onClick={() => emitDataToParent(body, 'delete')}></i>
+                      </button>
+                    )}
+                    {data.actions.lock && (
+                      <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
+                        <i className="fa fa-lock" aria-hidden="true" onClick={() => emitDataToParent(body, 'unblock')}></i>
                       </button>
                     )}
                   </td>

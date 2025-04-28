@@ -9,6 +9,8 @@ import { loaderService } from "./Loader/Loader";
 import Toaster from "./Toaster";
 import { BehaviorSubject } from "rxjs";
 import { sessionService } from "./SessionService";
+import * as CryptoJS from 'crypto-js';
+import jwtDecode from "jwt-decode";
 
 const loaderSubject = new BehaviorSubject();
 
@@ -71,7 +73,7 @@ const get = (urlKey, showLoader = true, queryParams) => {
   return axios.get(url, config);
 };
 
-const post = (urlKey, params, showLoader = true, cancelToken = undefined) => {
+const post = async(urlKey, params, showLoader = true, cancelToken = undefined) => {
   // const navigate = useNavigate();
 
   const environment = API_ENVIRONMENT[urlKey] || DEPLOYED_ENVIRONMENT;
@@ -92,7 +94,6 @@ const post = (urlKey, params, showLoader = true, cancelToken = undefined) => {
   }
   const userData = sessionService.getSession('userDetails');
   if (userData) {
-
     const addToPayload = Object.keys(userData)
     if (params instanceof FormData) {
       addToPayload.map(element => {
@@ -105,9 +106,41 @@ const post = (urlKey, params, showLoader = true, cancelToken = undefined) => {
       // })
     }
   }
+  // Base64
   let payLoad = window.btoa(JSON.stringify(params))
-  return axios.post(url, payLoad);
+  let response = await axios.post(url, payLoad)
+  return JSON.parse(window.atob(response.data))
+  // JWT
+  // let payLoad = convertToJWT(params)
+  // let response = await axios.post(url, payLoad)
+  // return JSON.parse(window.atob(response.data))
 };
+
+const convertToJWT = (payLoad) => {
+  const secretKey = "Run";
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT',
+  };
+  const stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+  const encodedHeader = base64url(stringifiedHeader);
+  const stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(payLoad));
+  const encodedData = base64url(stringifiedData);
+  const token = encodedHeader + '.' + encodedData;
+  let signature = CryptoJS.HmacSHA256(token, secretKey);
+  signature = base64url(signature);
+  const signedToken = token + '.' + signature;
+  console.log(payLoad,signedToken)
+  return window.btoa(JSON.stringify({ "data": signedToken }));
+}
+
+const base64url = (source) => {
+  let encodedSource = CryptoJS.enc.Base64.stringify(source);
+  encodedSource = encodedSource.replace(/=+$/, '');
+  encodedSource = encodedSource.replace(/\+/g, '-');
+  encodedSource = encodedSource.replace(/\//g, '_');
+  return encodedSource;
+}
 
 const fetchLocalJSONS = (url) => {
   fetch(`/Assets/json/${url}.json`

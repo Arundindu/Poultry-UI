@@ -15,8 +15,7 @@ const Diseases = () => {
     const payload = {
       userName: localStorage.getItem('userName')
     }
-    ServiceUtils.postRequest("diseasesList", payload).then((responseData) => {
-      let response = JSON.parse(window.atob(responseData.data))
+    ServiceUtils.postRequest("diseasesList", payload).then((response) => {
       if (response.status === 'success') {
         setDiseaseList(response.data)
         Toaster.success(response.message || "Success");
