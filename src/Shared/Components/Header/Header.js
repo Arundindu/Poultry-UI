@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ServiceUtils } from '../../Utils/ServiceUtils'
 import Toaster from '../../Utils/Toaster'
+import { sessionService } from '../../Utils/SessionService'
 
 const Header = ({ dataFromSidebar }) => {
   const navigate = useNavigate()
@@ -21,14 +22,14 @@ const Header = ({ dataFromSidebar }) => {
     if (storedSubHeader) {
       setSubHeader(storedSubHeader);
     }
-    let pathName = window.location.pathname.split('/')
+    let pathName = window.location.hash.split('/')
     let name = pathName[pathName.length - 1]
     setPathName(name)
   }, []);
 
   const logout = () => {
-    navigate('/login')
-    sessionStorage.clear()
+    navigate('/Login')
+    sessionService.clearSession()
   }
   const userManual = () => {
     // navigate('/Configurations')
@@ -36,7 +37,7 @@ const Header = ({ dataFromSidebar }) => {
   }
   const deactivateUser = () => {
     const payload = {
-      userName: localStorage.getItem('userName')
+      userName: sessionStorage.getItem('userName')
     }
     ServiceUtils.postRequest("deActivateUser", payload).then((response) => {
       if (response.status === 'success') {
@@ -50,7 +51,7 @@ const Header = ({ dataFromSidebar }) => {
   const deleteUser = () => {
     try {
       const payload = {
-        userName: localStorage.getItem('userName')
+        userName: sessionStorage.getItem('userName')
       }
       ServiceUtils.postRequest("deleteUser", payload).then((response) => {
         if (response.status === 'success') {
@@ -75,7 +76,7 @@ const Header = ({ dataFromSidebar }) => {
       const payload = {
         tabs: data,
         type: 'add',
-        userName: localStorage.getItem('userName')
+        userName: sessionStorage.getItem('userName')
       }
       ServiceUtils.postRequest("addSettingTab", payload).then((response) => {
         if (response.status === 'success') {
@@ -120,7 +121,7 @@ const Header = ({ dataFromSidebar }) => {
         <div className='profile d-flex align-items-center'>
           <div className="dropdown">
             <span className="navbar-name dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"><i className="fa fa-user" aria-hidden="true"></i>&nbsp; {localStorage.getItem('userName')}
+              aria-haspopup="true" aria-expanded="false"><i className="fa fa-user" aria-hidden="true"></i>&nbsp; {sessionStorage.getItem('userName')}
             </span>
             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
               <span className="dropdown-item" onClick={userManual}><i className="fa fa-book" aria-hidden="true"></i>&nbsp; User Manual</span>
@@ -157,7 +158,7 @@ const Header = ({ dataFromSidebar }) => {
                       <input className='form-control my-2' placeholder='Label' type='text' name='label' id='label' onChange={(e) => changeHandler(e, index)} />
                     </div>
                     {data.length - 1 === index ? <div className="col-md-2 d-flex align-items-center">
-                      <button type="button" className='btn btn-primary' onClick={addNewRow}><i class="fa fa-plus" aria-hidden="true"></i></button>
+                      <button type="button" className='btn btn-primary' onClick={addNewRow}><i className="fa fa-plus" aria-hidden="true"></i></button>
                     </div> : ''}
                   </div>
                 ))}

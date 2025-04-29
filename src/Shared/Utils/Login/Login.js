@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import Toaster from '../Toaster';
 import { ServiceUtils } from '../ServiceUtils';
 import * as CryptoJS from 'crypto-js';
+import { sessionService } from '../SessionService';
 
 const Login = () => {
     const [data, setData] = useState({
@@ -27,7 +28,9 @@ const Login = () => {
         const payload = encodedDetails
         ServiceUtils.postRequest("userLogin", payload).then((response) => {
             if (response.status === 'success') {
-                localStorage.setItem('userName', data.userName)
+                sessionStorage.setItem('userName', data.userName)
+                // localStorage.setItem('userName', data.userName)
+                sessionService.setSession(JSON.stringify(data),'userId')
                 navigate('/Home/Dashboard')
             } else if (response.status === 'InActive') {
                 setShowModal(true);
@@ -93,7 +96,7 @@ const Login = () => {
         ServiceUtils.postRequest("activateUser", payload).then((response) => {
             if (response.status === 'success') {
                 setShowModal(false);
-                localStorage.setItem('userName', data.userName)
+                sessionStorage.setItem('userName', data.userName)
                 navigate('/Home/Dashboard')
                 Toaster.success(response.message || "Success");
             } else {

@@ -32,12 +32,16 @@ const setKey = (keyValue, sessionKey) => {
 const clear = (key) => {
     sessionStorage.removeItem(key);
 }
+const clearSession = () => {
+    sessionStorage.clear();
+}
 
 const sessionService = {
     getSession: get,
     setSession: set,
     setKey: setKey,
-    clearSession: clear,
+    clearSession: clearSession,
+    clear: clear,
 };
 
 export { sessionService };

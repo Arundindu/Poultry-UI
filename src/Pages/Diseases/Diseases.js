@@ -13,12 +13,11 @@ const Diseases = () => {
 
   const getDiseasesList = () => {
     const payload = {
-      userName: localStorage.getItem('userName')
+      userName: sessionStorage.getItem('userName')
     }
     ServiceUtils.postRequest("diseasesList", payload).then((response) => {
       if (response.status === 'success') {
         setDiseaseList(response.data)
-        Toaster.success(response.message || "Success");
       } else {
         Toaster.error(response.message || "Error");
       }

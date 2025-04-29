@@ -397,14 +397,16 @@ const Table = ({ data, onDataEmit }) => {
       data: body,
       type: type
     };
-    onDataEmit(dataToEmit);
+    if (onDataEmit) {
+      onDataEmit(dataToEmit);
+    }
   };
 
   return (
     <>
       <div className='row col-md-12 my-1 d-flex justify-content-end'>
         <button className='btn btn-primary w-auto' style={{ marginRight: '10px' }} onClick={handleToggle}>
-          <i class="fa fa-search" aria-hidden="true"></i>
+          <i className="fa fa-search" aria-hidden="true"></i>
         </button>
         <input type='text' className='form-control w-25' placeholder='Search...' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </div>
@@ -442,22 +444,22 @@ const Table = ({ data, onDataEmit }) => {
                   <td className='actionCol'>
                     {data.actions.view && (
                       <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
-                        <i className="fa fa-eye" aria-hidden="true" onClick={() => emitDataToParent(body, 'view')}></i>
+                        <i className="fa fa-eye" aria-hidden="true" title='View' onClick={() => emitDataToParent(body, 'view')}></i>
                       </button>
                     )}
                     {data.actions.edit && (
                       <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
-                        <i className="fa fa-edit" aria-hidden="true" onClick={() => emitDataToParent(body, 'edit')}></i>
+                        <i className="fa fa-edit" aria-hidden="true" title='Edit' onClick={() => emitDataToParent(body, 'edit')}></i>
                       </button>
                     )}
                     {data.actions.delete && (
                       <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
-                        <i className="fa fa-trash" aria-hidden="true" onClick={() => emitDataToParent(body, 'delete')}></i>
+                        <i className="fa fa-trash" aria-hidden="true" title='Delete' onClick={() => emitDataToParent(body, 'delete')}></i>
                       </button>
                     )}
                     {data.actions.lock && (
                       <button className='btn px-2' style={{ paddingTop: '1px', paddingBottom: '1px' }}>
-                        <i className="fa fa-lock" aria-hidden="true" onClick={() => emitDataToParent(body, 'unblock')}></i>
+                        <i className="fa fa-lock" aria-hidden="true" title='Unblock' onClick={() => emitDataToParent(body, 'unblock')}></i>
                       </button>
                     )}
                   </td>

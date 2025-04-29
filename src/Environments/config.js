@@ -37,6 +37,7 @@ export const API_ENDPOINTS = {
   'chickTrend': 'chickTrend',
   'blockedUsersTableData': 'blockedUsersTableData',
   'unBlockUser': 'unBlockUser',
+  'dashboardTableData': 'dashboardTableData',
 };
 
 export const API_ENVIRONMENT = {
@@ -73,6 +74,7 @@ export const API_ENVIRONMENT = {
   'chickTrend': 'dev',
   'blockedUsersTableData': 'dev',
   'unBlockUser': 'dev',
+  'dashboardTableData': 'dev',
 };
 
 export const MESSAGES = {
@@ -87,7 +89,8 @@ export const MESSAGES = {
 export const VARIABLES = {
   userSession: 'kl-user',
   accessToken: 'tokenId',
-  userName: 'name',
+  userName: 'userName',
+  userId: 'userId',
   fullName: 'full_name',
   firstName: 'first_name',
   lastName: 'last_name',

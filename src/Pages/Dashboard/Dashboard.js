@@ -4,18 +4,22 @@ import { useNavigate } from 'react-router';
 import Table from '../../Shared/Table/Table';
 import * as L from 'leaflet';
 import customMarkerImage from '../../Assets/Images/marker.webp';
+import { ServiceUtils } from '../../Shared/Utils/ServiceUtils';
+import Toaster from '../../Shared/Utils/Toaster';
 
 const Dashboard = () => {
   const mapRef = useRef(null);
   const [latitude, setLatitude] = useState(13.8364);
   const [longitude, setLongitude] = useState(78.9315);
   const [zoom, setZoom] = useState(14);
+  const [tableData, setTableData] = useState([]);
   // const [dashboardItems,setDashboardItems]=useState([]);
 
   useEffect(() => {
     if (mapRef.current === null) {
       initLeafletMap();
     }
+    getTableData();
   }, []);
 
   const leafletMapImg = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -69,6 +73,19 @@ const Dashboard = () => {
     navigate(element.key);
     sessionStorage.setItem('selectedSubHeader', element.label);
   };
+  const getTableData = () => {
+    const payload = {
+      userName: sessionStorage.getItem("userName"),
+      tabName: 'dashboard'
+    }
+    ServiceUtils.postRequest("dashboardTableData", payload).then((response) => {
+      if (response.status === 'success') {
+        setTableData(response.tableData);
+      } else {
+        Toaster.error(response.message || "Error");
+      }
+    });
+  }
 
   const initLeafletMap = () => {
     const map = L.map('leafLetMap').setView([latitude, longitude], zoom);
@@ -142,7 +159,9 @@ const Dashboard = () => {
       </div>
       <div className='row m-0'>
         <div className='col-md-8 mt-3'>
-          <Table />
+          {tableData && tableData.headerContent && tableData.headerContent.length > 0 && (
+            <Table key={JSON.stringify(tableData)} data={tableData} />
+          )}
         </div>
         <div className='col-md-4 my-3 m-0'>
           <div className='row m-0' id='leafLetMap' style={{ height: '67vh', border: '1px solid #3c4858', borderRadius: '5px' }}></div>

@@ -82,7 +82,7 @@ const Trends = () => {
     },
     yAxis: {
       type: 'value',
-      name: 'Rate/Kg',
+      name: 'Price',
       nameLocation: 'middle',
       nameGap: 40
     },
@@ -178,7 +178,7 @@ const Trends = () => {
 
   const getMarketData = (data) => {
     const payload = {
-      userName: localStorage.getItem("userName"),
+      userName: sessionStorage.getItem("userName"),
       data: data
     }
     ServiceUtils.postRequest('marketTrend', payload).then((response) => {
@@ -204,7 +204,7 @@ const Trends = () => {
 
   const getChickData = (data) => {
     const payload = {
-      userName: localStorage.getItem("userName"),
+      userName: sessionStorage.getItem("userName"),
       data: data
     }
     ServiceUtils.postRequest('chickTrend', payload).then((response) => {

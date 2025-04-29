@@ -11,7 +11,7 @@ const Settings = () => {
 
   const getTabDetails = () => {
     const payload = {
-      userName: localStorage.getItem("userName")
+      userName: sessionStorage.getItem("userName")
     }
     ServiceUtils.postRequest("fetchSettingTabData", payload).then((response) => {
       if (response.status === 'success') {
@@ -34,7 +34,12 @@ const Settings = () => {
     }
   }
   const loadCardContent = (element) => {
-    navigate('/Home/Configurations', { state: { details: element } });
+    if(element.key !== "userRoleSetup"){
+      navigate('/Home/Configurations', { state: { details: element } });
+    }
+    else{
+      navigate('/Home/UserRoleSetup')
+    }
   }
 
   useEffect(() => {

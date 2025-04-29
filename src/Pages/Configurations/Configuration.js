@@ -26,7 +26,7 @@ const Configuration = () => {
   };
   const getData = (data) => {
     const payload = {
-      userName: localStorage.getItem("userName"),
+      userName: sessionStorage.getItem("userName"),
       tabName: sessionStorage.getItem('configurationTab'),
       data: data
     }
@@ -52,7 +52,7 @@ const Configuration = () => {
 
   const getTabJsonData = () => {
     const payload = {
-      userName: localStorage.getItem("userName"),
+      userName: sessionStorage.getItem("userName"),
       tabName: details.key
     }
     sessionStorage.setItem('configurationTab', details.key)
@@ -67,13 +67,12 @@ const Configuration = () => {
 
   const getTableData = () => {
     const payload = {
-      userName: localStorage.getItem("userName"),
+      userName: sessionStorage.getItem("userName"),
       tabName: details.key
     }
     ServiceUtils.postRequest(details.key + "TableData", payload).then((response) => {
       if (response.status === 'success') {
         setTableData(response.tableData);
-        console.log(tableData)
       } else {
         Toaster.error(response.message || "Error");
       }
@@ -100,7 +99,7 @@ const Configuration = () => {
       const payload = {
         data: tableEmittedData.data,
         type: tableEmittedData.type,
-        userName: localStorage.getItem('userName'),
+        userName: sessionStorage.getItem('userName'),
         tabName: sessionStorage.getItem('configurationTab')
       }
       ServiceUtils.postRequest("deleteSettingsTabDetails", payload).then((response) => {
@@ -122,7 +121,7 @@ const Configuration = () => {
       const payload = {
         data: tableEmittedData.data,
         type: tableEmittedData.type,
-        userName: localStorage.getItem('userName'),
+        userName: sessionStorage.getItem('userName'),
         tabName: sessionStorage.getItem('configurationTab')
       }
       ServiceUtils.postRequest("unBlockUser", payload).then((response) => {
@@ -142,7 +141,7 @@ const Configuration = () => {
   return (
     <>
       <div className='pageContainer m-1'>
-        <span className='cursor-pointer underline' onClick={() => routeToSettings()}><i class="fa fa-arrow-left" aria-hidden="true"></i> {"Settings/"}{sessionStorage.getItem('configurationTab')}</span>
+        <span className='cursor-pointer underline' onClick={() => routeToSettings()}><i className="fa fa-arrow-left" aria-hidden="true"></i> {"Settings/"}{sessionStorage.getItem('configurationTab')}</span>
         {details.key && formJson && formJson.length > 0 && (
           <>
             {formJson?.length > 0 && (

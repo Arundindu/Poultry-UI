@@ -1,0 +1,35 @@
+.active {
+    font-weight: bold !important;
+}
+
+.collapse {
+    border-bottom: 1px solid;
+
+    .nav-item {
+        .nav-link.px-5.active {
+            border-style: solid;
+            border-width: 1px 1px 0px 1px;
+            border-radius: 10px 10px 0px 0px;
+            background-color: #3c4858;
+            color: #fff;
+        }
+
+        &:hover {
+            border-style: solid;
+            border-width: 1px 1px 0px 1px;
+            border-radius: 10px 10px 0px 0px;
+        }
+    }
+}
+
+.mainPage {
+    background-color: aliceblue;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.subPage {
+    display: flex;
+    align-items: center;
+}

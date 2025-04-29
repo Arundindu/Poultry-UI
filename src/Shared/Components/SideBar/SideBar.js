@@ -22,7 +22,7 @@ const SideBar = ({ onAction }) => {
 
   useEffect(() => {
     if (tab) {
-      let pathName = window.location.pathname.split('/')
+      let pathName = window.location.hash.split('/')
       let name = pathName[pathName.length - 1]
       if (name !== tab) {
         setTab(name);
