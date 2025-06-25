@@ -38,6 +38,7 @@ export const API_ENDPOINTS = {
   'blockedUsersTableData': 'blockedUsersTableData',
   'unBlockUser': 'unBlockUser',
   'dashboardTableData': 'dashboardTableData',
+  'userRoleAccess': 'userRoleAccess',
 };
 
 export const API_ENVIRONMENT = {
@@ -75,6 +76,7 @@ export const API_ENVIRONMENT = {
   'blockedUsersTableData': 'dev',
   'unBlockUser': 'dev',
   'dashboardTableData': 'dev',
+  'userRoleAccess': 'dev',
 };
 
 export const MESSAGES = {

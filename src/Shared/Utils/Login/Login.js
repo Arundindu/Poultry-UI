@@ -28,9 +28,8 @@ const Login = () => {
         const payload = encodedDetails
         ServiceUtils.postRequest("userLogin", payload).then((response) => {
             if (response.status === 'success') {
-                sessionStorage.setItem('userName', data.userName)
-                // localStorage.setItem('userName', data.userName)
-                sessionService.setSession(JSON.stringify(data),'userId')
+                sessionStorage.setItem('userName', response.data.userName)
+                sessionStorage.setItem('userType', response.data.userType)
                 navigate('/Home/Dashboard')
             } else if (response.status === 'InActive') {
                 setShowModal(true);

@@ -1,0 +1,88 @@
+{
+    "status": "success",
+    "message": "Data received successfully",
+    "data": [
+        {
+            "key": "dashboard",
+            "label": "Dashboard"
+        },
+        {
+            "key": "about",
+            "label": "About"
+        },
+        {
+            "key": "trends",
+            "label": "Trends"
+        },
+        {
+            "key": "settings",
+            "label": "Settings",
+            "subPage": [
+                {
+                    "key": "birdsPrice",
+                    "label": "Birds Price"
+                },
+                {
+                    "key": "chickPrice",
+                    "label": "Chicks Price"
+                },
+                {
+                    "key": "diseases",
+                    "label": "Diseases"
+                },
+                {
+                    "key": "feedConsumption",
+                    "label": "Feed Consumption"
+                },
+                {
+                    "key": "feedPrice",
+                    "label": "Feed Price"
+                },
+                {
+                    "key": "hensAvailability",
+                    "label": "Hens Availability"
+                },
+                {
+                    "key": "mortality",
+                    "label": "Mortality"
+                },
+                {
+                    "key": "notifications",
+                    "label": "Notifications"
+                },
+                {
+                    "key": "orderHens",
+                    "label": "Order Hens"
+                },
+                {
+                    "key": "sales",
+                    "label": "Sales"
+                },
+                {
+                    "key": "sheds",
+                    "label": "Sheds"
+                },
+                {
+                    "key": "userSetup",
+                    "label": "User Setup"
+                },
+                {
+                    "key": "userRoleSetup",
+                    "label": "User Role Setup"
+                },
+                {
+                    "key": "blockedUsers",
+                    "label": "Blocked Users"
+                }
+            ]
+        },
+        {
+            "key": "gallery",
+            "label": "Gallery"
+        },
+        {
+            "key": "diseases",
+            "label": "Diseases"
+        }
+    ]
+}
