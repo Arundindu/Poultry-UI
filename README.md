@@ -1,8 +1,5 @@
 # POULTRY
-
 User centric application where farm owner can have a track of their business w.r.to chicks bought, hens sold, profits and losses and customer wise total sales.
-
-
 
 # Getting Started with Create React App
 
