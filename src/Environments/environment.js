@@ -4,7 +4,7 @@ export const ENVIRONMENTS = {
   },
   dev: {
     // baseurl: 'http://192.168.1.26:40109/userManagement/',
-    baseurl: 'http://192.168.1.75:40109/userManagement/',
+    baseurl: 'https://poultry-be-oy5n.onrender.com/userManagement/',
     // baseurl: 'http://192.168.1.141:40109/userManagement/',
     // baseurl: '/kl_one_it/',
   },
