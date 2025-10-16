@@ -4,9 +4,8 @@ export const ENVIRONMENTS = {
   },
   dev: {
     // baseurl: 'http://192.168.1.26:40109/userManagement/',
-    baseurl: 'http://192.168.1.60:40109/userManagement/',
+    baseurl: 'http://192.168.1.75:40109/userManagement/',
     // baseurl: 'http://192.168.1.141:40109/userManagement/',
-    // baseurl: 'https://glens.glensserver.com/glens/userManagement/api/v3.0/',
     // baseurl: '/kl_one_it/',
   },
   prod: {
