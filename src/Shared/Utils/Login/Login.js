@@ -110,7 +110,7 @@ const Login = () => {
 
     return (
         <>
-            {window.innerWidth && window.innerWidth > 425 ?
+            {window.innerWidth && window.innerWidth > 500 ?
                 <div className='container-fluid'>
                     <div>
                         <div className='circle1'></div>
