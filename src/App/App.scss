@@ -1,9 +1,10 @@
 .App {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background-color: #f0f1f1;
-  overflow: auto;
+  overflow: hidden;
   font-family: auto;
+  position: relative;
 }
 
 .App-logo {
@@ -188,4 +189,8 @@ a {
 input[type='checkbox'] {
   width: 17px;
   height: 17px;
+}
+
+* {
+  box-sizing: border-box;
 }
