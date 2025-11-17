@@ -6,6 +6,7 @@ const proxies = {
 export const API_ENDPOINTS = {
   "addUser": "addUser",
   "userLogin": "login",
+  "forgotPassword": "forgotPassword",
   "activateUser": "activateUser",
   "deActivateUser": "deActivateUser",
   "deleteUser": "deleteUser",
@@ -44,6 +45,7 @@ export const API_ENDPOINTS = {
 export const API_ENVIRONMENT = {
   'addUser':'dev',
   'userLogin': 'dev',
+  'forgotPassword': 'dev',
   'activateUser': 'dev',
   'deActivateUser': 'dev',
   'deleteUser': 'dev',

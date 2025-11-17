@@ -1,5 +1,5 @@
 .mainContainer {
-    height: 100%;
+    height: 100vh;
 
     .headerSection {
         height: 7%;
@@ -14,6 +14,9 @@
 
     .footerSection {
         height: 5%;
+        bottom: 0%;
+        position: absolute;
+        width: 100%;
     }
 }
 

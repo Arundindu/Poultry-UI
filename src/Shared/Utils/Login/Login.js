@@ -12,12 +12,19 @@ const Login = () => {
         userName: '',
         password: ''
     })
+    const [forgotData, setForgotData] = useState({
+        userName: '',
+        eMil: ''
+    })
     const navigate = useNavigate()
     const [showModal, setShowModal] = useState(false);
-    // const [showPassword, setShowPassword] = useState(false);
+    const [showForgotModal, setShowForgotModal] = useState(false);
 
     const changeHandler = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
+    }
+    const changeHandle = (e) => {
+        setForgotData({ ...forgotData, [e.target.name]: e.target.value })
     }
 
     const submitHandler = (e) => {
@@ -38,6 +45,26 @@ const Login = () => {
                 Toaster.error(response.message || "Error");
             }
         });
+    }
+    const getOtp = (e) => {
+        try {
+            e.preventDefault();
+            let encodedDetails = JSON.parse(JSON.stringify(forgotData))
+            // AES
+            // encodedDetails.password = encryptPasswordWithUsername(encodedDetails.password, data.userName, 'token')
+            const payload = encodedDetails
+            ServiceUtils.postRequest("forgotPassword", payload).then((response) => {
+                if (response.status === 'success') {
+                    sessionStorage.setItem('userName', encodedDetails.userName)
+                    sessionStorage.setItem('userType', encodedDetails.userType)
+                    setShowForgotModal(false)
+                } else {
+                    Toaster.error(response.message || "Error");
+                }
+            });
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const encryptPasswordWithUsername = (encData, username, token = null) => {
@@ -76,16 +103,13 @@ const Login = () => {
         navigate('/Signup')
     }
 
-    const routeToDashboard = () => {
-        navigate('/Home/Dashboard')
-    }
-
-    const validateKey = () => {
-        console.log('Validating Key')
+    const showForgotPassword = () => {
+        setShowForgotModal(true);
     }
 
     const closeModalAndNavigate = () => {
         setShowModal(false);
+        setShowForgotModal(false);
     };
 
     const onActivate = () => {
@@ -104,9 +128,8 @@ const Login = () => {
         });
     };
 
-    validateKey()
-    const isFormIncomplete = data.userName.trim() === '' || data.password.trim() === '';
-    const buttonClass = isFormIncomplete ? 'btnDisabled' : '';
+    const isLoginDisabled = data?.userName?.trim() === '' || data?.password?.trim() === '';
+    const isOtpDisabled = forgotData?.userName?.trim() === '' || forgotData?.eMail?.trim() === '';
 
     return (
         <>
@@ -146,11 +169,11 @@ const Login = () => {
                                                     color: '#333'
                                                 }}
                                             ></i> */}
-                                            <input type="submit" value="Login" className={`btn btn-primary col-12 mt-4 ${buttonClass}`} disabled={isFormIncomplete} />
+                                            <input type="submit" value="Login" className={`btn btn-primary col-12 mt-4 ${isLoginDisabled ? 'btnDisabled' : ''}`} disabled={isLoginDisabled} />
                                         </form>
                                         <div className='col-12 d-flex justify-content-between'>
                                             <a onClick={() => routeToSignUp()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>SignUp?</a>
-                                            <a onClick={() => routeToDashboard()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Forgot Password</a>
+                                            <a onClick={() => showForgotPassword()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Forgot Password</a>
                                         </div>
                                         <div className='col-12 d-flex justify-content-around'><a onClick={() => goToPublicPage()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Back to Public Page</a></div>
                                     </div>
@@ -182,11 +205,11 @@ const Login = () => {
                                         <form onSubmit={submitHandler}>
                                             <input className='form-control my-2' placeholder='Username' type='text' name='userName' id='userName' onChange={changeHandler} />
                                             <input className='form-control my-2' placeholder='Password' type='password' name='password' id='password' onChange={changeHandler} />
-                                            <input type="submit" value="Login" className={`btn btn-primary col-12 mt-4 ${buttonClass}`} disabled={isFormIncomplete} />
+                                            <input type="submit" value="Login" className={`btn btn-primary col-12 mt-4 ${isLoginDisabled ? 'btnDisabled' : ''}`} disabled={isLoginDisabled} />
                                         </form>
                                         <div className='col-12 d-flex justify-content-between'>
                                             <a onClick={() => routeToSignUp()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>SignUp?</a>
-                                            <a onClick={() => routeToDashboard()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Forgot Password</a>
+                                            <a onClick={() => showForgotPassword()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Forgot Password</a>
                                         </div>
                                         <div className='col-12 d-flex justify-content-around'><a onClick={() => goToPublicPage()} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Back to Public Page</a></div>
                                     </div>
@@ -213,6 +236,29 @@ const Login = () => {
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-primary" onClick={onActivate}>Activate</button>
                                 <button type="button" className="btn btn-outline-secondary" data-dismiss="modal" onClick={closeModalAndNavigate}>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showForgotModal && (
+                <div className="modal fade show justify-content-center" role="dialog" style={{ display: 'flex' }}>
+                    <div className={`modal-dialog d-flex align-items-center ${window.innerWidth && window.innerWidth > 500 ? 'w-25' : 'w-100'}`}>
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Forgot Password?</h5>
+                                <button type="button" className="close btn-group" data-dismiss="modal" aria-label="Close" onClick={closeModalAndNavigate}>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <form>
+                                    <input className='form-control my-2' placeholder='Username' type='text' name='userName' id='userName' onChange={changeHandle} />
+                                    <input className='form-control my-2' placeholder='E-mail' type='email' name='eMail' id='eMail' onChange={changeHandle} />
+                                </form>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className={`btn btn-primary ${isOtpDisabled ? 'btnDisabled' : ''}`} onClick={getOtp} disabled={isOtpDisabled}>Get OTP</button>
                             </div>
                         </div>
                     </div>
