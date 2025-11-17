@@ -1,5 +1,5 @@
 .App {
-  min-height: 100dvh;
+  min-height: 100svh;
   width: 100dvw;
   background-color: #f0f1f1;
   overflow: hidden;
@@ -110,7 +110,7 @@ a {
   z-index: 9999 !important;
 }
 
-@media (max-width : 426px) {
+@media (max-width : 500px) {
   .pageContainer {
     max-height: calc(100dvh - 16%);
     width: 100dvw;
@@ -193,4 +193,11 @@ input[type='checkbox'] {
 
 * {
   box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
