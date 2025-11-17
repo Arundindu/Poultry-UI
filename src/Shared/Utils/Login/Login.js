@@ -170,7 +170,7 @@ const Login = () => {
                         <div className='circle6'></div>
                         <div className='circle7'></div>
                     </div>
-                    <div className='row d-flex justify-content-center align-items-center loginContainer'>
+                    <div className='loginContainer'>
                         <div className='row'>
                             <div className='col-12 d-flex justify-content-around align-items-center'>
                                 <img src={hen} className="appLogo" alt="logo" />
