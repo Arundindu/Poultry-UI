@@ -161,7 +161,7 @@ const Login = () => {
                 </div>
                 :
                 <div className='container-fluid'>
-                    <div>
+                    {/* <div>
                         <div className='circle1'></div>
                         <div className='circle2'></div>
                         <div className='circle3'></div>
@@ -169,7 +169,7 @@ const Login = () => {
                         <div className='circle5'></div>
                         <div className='circle6'></div>
                         <div className='circle7'></div>
-                    </div>
+                    </div> */}
                     <div className='loginContainer'>
                         <div className='row'>
                             <div className='col-12 d-flex justify-content-around align-items-center'>
