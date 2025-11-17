@@ -1,6 +1,6 @@
 .App {
-  min-height: 100vh;
-  width: 100vw;
+  min-height: 100dvh;
+  width: 100dvw;
   background-color: #f0f1f1;
   overflow: hidden;
   font-family: auto;
@@ -20,7 +20,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,7 +75,7 @@ a {
 .pageContainer {
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: calc(100vh - 7%);
+  max-height: calc(100dvh - 7%);
 }
 
 .card {
@@ -112,8 +112,8 @@ a {
 
 @media (max-width : 426px) {
   .pageContainer {
-    max-height: calc(100vh - 16%);
-    width: 100vw;
+    max-height: calc(100dvh - 16%);
+    width: 100dvw;
   }
 
   .card {
@@ -178,12 +178,12 @@ a {
 }
 
 .modal-dialog {
-  max-width: 75vw !important;
+  max-width: 75dvw !important;
 }
 
 .modal-body {
   overflow-y: auto;
-  max-height: 65vh;
+  max-height: 65dvh;
 }
 
 input[type='checkbox'] {
