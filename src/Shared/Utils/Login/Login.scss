@@ -4,7 +4,7 @@
     background: linear-gradient(45deg, #1cbaa6, #74E39A);
     border-radius: 32px;
     top: -13px;
-    position: relative;
+    position: absolute;
     left: -20px;
 }
 
@@ -13,8 +13,8 @@
     width: 65px;
     background: linear-gradient(45deg, #ffd100, #f9ff53);
     border-radius: 32px;
-    bottom: 81px;
-    position: relative;
+    // bottom: 81px;
+    position: absolute;
     left: 67%;
 }
 
@@ -73,12 +73,17 @@
     background-color: #fff;
     width: 60vw;
     height: 60vh;
-    left: 20%;
-    right: 20%;
-    position: absolute;
-    bottom: 20%;
-    top: 20%;
+    // left: 20%;
+    // right: 20%;
+    // position: absolute;
+    // bottom: 20%;
+    // top: 20%;
     font-family: auto;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .appLogo {
