@@ -42,7 +42,7 @@ const Signup = () => {
   const btnClass = isFormIncomplete ? 'btnDisabled' : '';
   const navigate = useNavigate()
   return (
-    (window.innerWidth && window.innerWidth > 426) ?
+    (window.innerWidth && window.innerWidth > 500) ?
       <div className='d-flex' style={{ width: '100%', height: '100%' }}>
         <div className='col-4' style={{ backgroundColor: '#fff' }}>
           <div className='borderContainer'>
