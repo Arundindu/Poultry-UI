@@ -49,7 +49,7 @@ axios.interceptors.response.use(
   }
 );
 
-const get = (urlKey, showLoader = true, queryParams) => {
+const get = async(urlKey, showLoader = true, queryParams) => {
   let url;
   const environment = API_ENVIRONMENT[urlKey] || DEPLOYED_ENVIRONMENT;
   if (environment === "local") {
@@ -69,8 +69,8 @@ const get = (urlKey, showLoader = true, queryParams) => {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  console.log(axios.get(url, config))
-  return axios.get(url, config);
+  let response = await axios.get(url, config)
+  return JSON.parse(window.atob(response.data))
 };
 
 const post = async (urlKey, params, showLoader = true, cancelToken = undefined) => {

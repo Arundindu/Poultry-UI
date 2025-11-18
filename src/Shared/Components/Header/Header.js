@@ -135,7 +135,7 @@ const Header = ({ dataFromSidebar }) => {
       </div >
       {showModal && (
 
-        <div className="modal fade show" role="dialog" style={{ display: 'flex' }}>
+        <div className="modal fade show d-flex justify-content-center" role="dialog">
           <div className="modal-dialog w-100 d-flex align-items-center">
             <div className="modal-content">
               <div className="modal-header">

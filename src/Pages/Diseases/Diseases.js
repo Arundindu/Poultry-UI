@@ -46,7 +46,7 @@ const Diseases = () => {
                     <i className={`fa fa-2x cursor-pointer ${cardId === index ? 'fa-angle-down' : 'fa-angle-up'}`} aria-hidden="true" onClick={() => activeCard(index)}></i>
                   </span>
                 </div>
-                <div className={classNames('card-body', { 'd-none': cardId !== index }, (window.innerWidth > 500) ? "d-flex" : "")}>
+                <div className={classNames('card-body d-flex justify-content-center align-items-center', { 'd-none': cardId !== index }, (window.innerWidth <= 500) ? "flex-column" : "")}>
                   {/* <img style={{ height: '15rem', width: '15rem' }} src={require(`../../Assets/Images/${element?.diseaseImagePath}`)} alt="..." /> */}
                   <img style={{ height: '15rem', width: '15rem' }} src={element.diseaseImage.imageData} alt="..." />
                   <p className='p-2 d-flex align-items-center'>{element.diseaseDescription}</p>

@@ -2,6 +2,8 @@ import React, { useEffect, useState, createContext } from 'react'
 import './SideBar.scss'
 import logo from '../../../Assets/Images/hen.jpg'
 import classNames from "classnames";
+import { ServiceUtils } from '../../Utils/ServiceUtils';
+import Toaster from '../../Utils/Toaster';
 
 export const MyContext = createContext();
 
@@ -10,26 +12,7 @@ const SideBar = ({ onAction }) => {
   const [tab, setTab] = useState('Dashboard')
   const [sideBarStatus, setSideBarStatus] = useState('inActive');
   const [sideBarWidth, setSideBarWidth] = useState('inActive');
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    // Attach event listener to window resize
-    window.addEventListener('resize', handleResize);
-    // Clean up event listener on unmount
-    return () => window.removeEventListener('resize', handleResize);
-  }, [window.innerWidth]);
-
-  useEffect(() => {
-    if (tab) {
-      let pathName = window.location.hash.split('/')
-      let name = pathName[pathName.length - 1]
-      if (name !== tab) {
-        setTab(name);
-      }
-    }
-  }, [tab])
-  const sideBarItems = [
+  const [sideBarItems, setSideBarItems] = useState([
     {
       icon: "dashboard",
       id: "dashboard",
@@ -38,7 +21,7 @@ const SideBar = ({ onAction }) => {
     },
     {
       icon: "info",
-      id: "info",
+      id: "about",
       label: "About",
       route: "/Home/About",
     },
@@ -66,7 +49,41 @@ const SideBar = ({ onAction }) => {
       id: "diseases",
       route: "/Home/Diseases",
     }
-  ];
+  ]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    // Attach event listener to window resize
+    window.addEventListener('resize', handleResize);
+    // Clean up event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, [window.innerWidth]);
+
+  useEffect(() => {
+    if (tab) {
+      let pathName = window.location.hash.split('/')
+      let name = pathName[pathName.length - 1]
+      if (name !== tab) {
+        setTab(name);
+      }
+    }
+  }, [tab])
+  useEffect(() => {
+    let payLoad = {
+    }
+    ServiceUtils.postRequest('getSideBarData', payLoad).then((response) => {
+      if (response.status === 'success') {
+        setSideBarItems((prevData) => {
+          return prevData.map(item => ({
+            ...item,
+            show: response.data[item.id]
+          }));
+        });
+      } else {
+        Toaster.error(response.message || "Error");
+      }
+    });
+  }, [])
 
   const handleClick = (e) => {
     if (typeof e === 'object') {
@@ -104,7 +121,7 @@ const SideBar = ({ onAction }) => {
               (sideBarItems && sideBarItems.length > 0) && sideBarItems.map((element) => {
                 return (
                   <div className={classNames("d-flex align-items-center menu", {
-                    "active-menu": tab === element.label,
+                    "active-menu": tab === element.label, "d-none": element.show == false
                   })} style={{ height: '2.5rem', paddingLeft: '1rem', cursor: 'pointer' }} onClick={() => handleClick(element)}>
                     <i className="material-icons">{element['icon']}</i>&nbsp;&nbsp;<span>{element.label}</span>
                   </div>
@@ -125,7 +142,7 @@ const SideBar = ({ onAction }) => {
               (sideBarItems && sideBarItems.length > 0) && sideBarItems.map((element) => {
                 return (
                   <div className={classNames("d-flex align-items-center justify-content-center menu", {
-                    "active-menu": tab === element.label,
+                    "active-menu": tab === element.label, "d-none": element.show == false
                   })} style={{ height: '2.5rem', padding: '0.5rem', cursor: 'pointer' }} onClick={() => handleClick(element)}>
                     <i className="material-icons">{element['icon']}</i>
                   </div>

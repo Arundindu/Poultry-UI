@@ -360,7 +360,6 @@ const Table = ({ data, onDataEmit }) => {
   const [filteredData, setFilteredData] = useState(data?.bodyContent);
 
   useEffect(() => {
-    console.log(data)
     const filtered = data?.bodyContent.filter((item) =>
       Object.keys(filters).every((key) =>
         filters[key] === '' ||

@@ -10,106 +10,8 @@ const UserRoleSetup = () => {
     const [fieldsData, setFieldsData] = useState({})
     const [tabs, setTabs] = useState([])
     const [pages, setPages] = useState([])
+    const [pageData, setPageData] = useState({})
     const navigate = useNavigate()
-
-    const data = {
-        "admin": {
-            "dashboard": true,
-            "about": true,
-            "trends": true,
-            "settings": true,
-            "settingssubPage": {
-                "birdsPrice": true,
-                "chickPrice": true,
-                "diseases": true,
-                "feedConsumption": true,
-                "feedPrice": true,
-                "hensAvailability": true,
-                "mortality": true,
-                "notifications": true,
-                "orderHens": true,
-                "sales": true,
-                "sheds": true,
-                "userSetup": true,
-                "userRoleSetup": true,
-                "blockedUsers": false
-            },
-            "gallery": true,
-            "diseases": false
-        },
-        "vendor": {
-            "dashboard": true,
-            "about": true,
-            "trends": true,
-            "settings": true,
-            "settingssubPage": {
-                "birdsPrice": true,
-                "chickPrice": false,
-                "diseases": false,
-                "feedConsumption": false,
-                "feedPrice": false,
-                "hensAvailability": true,
-                "mortality": false,
-                "notifications": false,
-                "orderHens": false,
-                "sales": false,
-                "sheds": false,
-                "userSetup": false,
-                "userRoleSetup": false,
-                "blockedUsers": false
-            },
-            "gallery": false,
-            "diseases": false
-        },
-        "user": {
-            "dashboard": true,
-            "about": true,
-            "trends": true,
-            "settings": false,
-            "settingssubPage": {
-                "birdsPrice": false,
-                "chickPrice": false,
-                "diseases": false,
-                "feedConsumption": false,
-                "feedPrice": false,
-                "hensAvailability": true,
-                "mortality": false,
-                "notifications": false,
-                "orderHens": false,
-                "sales": false,
-                "sheds": false,
-                "userSetup": false,
-                "userRoleSetup": false,
-                "blockedUsers": false
-            },
-            "gallery": false,
-            "diseases": false
-        },
-        "farmer": {
-            "dashboard": true,
-            "about": true,
-            "trends": true,
-            "settings": true,
-            "settingssubPage": {
-                "birdsPrice": false,
-                "chickPrice": false,
-                "diseases": false,
-                "feedConsumption": false,
-                "feedPrice": false,
-                "hensAvailability": true,
-                "mortality": false,
-                "notifications": true,
-                "orderHens": true,
-                "sales": false,
-                "sheds": false,
-                "userSetup": false,
-                "userRoleSetup": false,
-                "blockedUsers": false
-            },
-            "gallery": false,
-            "diseases": true
-        }
-    }
 
     const fetchUserTabDetails = () => {
         ServiceUtils.localJSONS('getUserRoleTabs').then((response) => {
@@ -140,23 +42,33 @@ const UserRoleSetup = () => {
         initialize()
     }, [])
 
+    useEffect(()=>{
+        ServiceUtils.getRequest('getUserRolePageData').then((response) => {
+            if (response.status === 'success') {
+                setPageData(response.data)
+            } else {
+                Toaster.error(response.message || "Error");
+            }
+        });
+    },[])
+
     useEffect(() => {
         if (activeCard && pages.length > 0) {
             const initialData = {
                 [activeCard]: {}
             }
             pages.forEach((page) => {
-                initialData[activeCard][page.key] = data[activeCard] ? data[activeCard][page.key] : false
+                initialData[activeCard][page.key] = pageData[activeCard] ? pageData[activeCard][page.key] : false
                 if (page.subPage) {
                     initialData[activeCard][page.key + "subPage"] = {}
                     page.subPage.forEach((sub) => {
-                        initialData[activeCard][page.key + "subPage"][sub.key] = data[activeCard] ? data[activeCard][page.key + "subPage"][sub.key] : false
+                        initialData[activeCard][page.key + "subPage"][sub.key] = pageData[activeCard] ? pageData[activeCard][page.key + "subPage"][sub.key] : false
                     })
                 }
             })
             setFieldsData(initialData)
         }
-    }, [activeCard, pages])
+    }, [activeCard, pages, pageData])
 
     const getActiveTab = (tab) => {
         setActiveCard(tab.key)
@@ -181,7 +93,17 @@ const UserRoleSetup = () => {
     }
 
     const handleSubmit = () => {
-        console.log(fieldsData)
+        let payLoad ={
+            key: Object.keys(fieldsData)[0],
+            [Object.keys(fieldsData)[0]]:fieldsData[Object.keys(fieldsData)[0]]
+        }
+        ServiceUtils.postRequest('setUserRolePageData',payLoad).then((response) => {
+            if (response.status === 'success') {
+                Toaster.success(response.message || 'Success')
+            } else {
+                Toaster.error(response.message || "Error");
+            }
+        });
     }
     const routeToSettings = () => {
         navigate('/Home/Settings')
@@ -202,7 +124,7 @@ const UserRoleSetup = () => {
                         <ul className="navbar-nav">
                             {tabs.map((tab) => (
                                 <li className="nav-item" key={tab.key}>
-                                    <button className={classNames("nav-link px-5", { 'active': activeCard === tab.key })} onClick={() => getActiveTab(tab)}>
+                                    <button className={classNames("nav-link px-5 w-100", { 'active': activeCard === tab.key })} onClick={() => getActiveTab(tab)}>
                                         {tab.label}
                                     </button>
                                 </li>

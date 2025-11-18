@@ -117,7 +117,6 @@ const Configuration = () => {
   }
   const onUnblock = () => {
     try {
-      console.log(tableEmittedData)
       const payload = {
         data: tableEmittedData.data,
         type: tableEmittedData.type,
