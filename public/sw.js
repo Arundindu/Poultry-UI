@@ -11,7 +11,7 @@ self.addEventListener("push", function (event) {
 
     const title = data?.title || "New Notification";
     const options = {
-        body: data.body,
+        body: data?.body || 'Data From Backend',
         icon: "/logo192.png",
         badge: "/logo192.png",
     };
