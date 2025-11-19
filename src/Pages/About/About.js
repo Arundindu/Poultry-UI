@@ -115,11 +115,14 @@ const About = () => {
       userVisibleOnly: true,
       applicationServerKey: applicationServerKey
     });
+
+    console.log("Push Subscription:", subscription);
+    Toaster.success("subscription",'success')
     const payLoad = {
       subscription:subscription,
       notificationData:{
         message:"Message received",
-        title:"Hey"
+        Title:"Hey"
       }
     }
     ServiceUtils.postRequest("pushNotification", payLoad).then((response) => {

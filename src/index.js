@@ -29,11 +29,11 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js")
     .then(() => {
       console.log("SW registered")
-      // Toaster.success('SW Registered', 'success')
+      Toaster.success('SW Registered', 'success')
     })
     .catch((err) => {
       console.log("SW registration failed", err)
-      // Toaster.error('SW registration failed', 'error')
+      Toaster.error('SW registration failed', 'error')
     });
 }
 
