@@ -43,6 +43,7 @@ export const API_ENDPOINTS = {
   'getUserRolePageData': 'getUserRolePageData',
   'setUserRolePageData': 'setUserRolePageData',
   'getSideBarData': 'getSideBarData',
+  'pushNotification': 'pushNotification',
 };
 
 export const API_ENVIRONMENT = {
@@ -85,6 +86,7 @@ export const API_ENVIRONMENT = {
   'getUserRolePageData': 'dev',
   'setUserRolePageData': 'dev',
   'getSideBarData': 'dev',
+  'pushNotification': 'dev',
 };
 
 export const MESSAGES = {
@@ -119,5 +121,7 @@ export const CONSTANTS = {
   organization: ['Knowledge Lens', 'GLens', 'Unify Twin'],
   allocation: [100, 90, 80, 70, 60, 50, 40, 30, 20, 10],
   tablePageSize: [10, 25, 50, 100, 200, 500],
+  PUBLIC_KEY:"BCTeAlAt_DnLbz7ka22t4DARmnUq7Ts0NxYNYgVPVgym77Y8b82U9EqDTbabwIZWmtGV510xJ07E_vtAY7tCg34",
+  PRIVATE_KEY:"2RyMboKl-JflKcZSBFx7_t13cAhYdSKw6NCOP_m2n9s"
 };
 export const TOASTER_TIMEOUT = 3000;
