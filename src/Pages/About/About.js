@@ -122,7 +122,7 @@ const About = () => {
       subscription:subscription,
       notificationData:{
         message:"Message received",
-        Title:"Hey"
+        title:"Hey"
       }
     }
     ServiceUtils.postRequest("pushNotification", payLoad).then((response) => {
