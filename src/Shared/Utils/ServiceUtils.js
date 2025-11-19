@@ -93,7 +93,7 @@ const post = async (urlKey, params, showLoader = true, cancelToken = undefined) 
     config.cancelToken = cancelToken;
   }
   const userData = sessionService.getSession('userDetails');
-  if (userData) {
+  if (userData && urlKey !=='pushNotification') {
     const addToPayload = Object.keys(userData)
     if (params instanceof FormData) {
       addToPayload.map(element => {

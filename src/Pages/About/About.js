@@ -118,7 +118,7 @@ const About = () => {
 
     console.log("Push Subscription:", subscription);
     Toaster.success("subscription",'success')
-    ServiceUtils.postRequest("pushNotification", subscription).then((response) => {
+    ServiceUtils.postRequest("pushNotification", {subscription:subscription}).then((response) => {
       if (response.status === "success") {
         Toaster.success("Notification permission enabled");
       } else {
