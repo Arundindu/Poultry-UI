@@ -115,10 +115,14 @@ const About = () => {
       userVisibleOnly: true,
       applicationServerKey: applicationServerKey
     });
-
-    console.log("Push Subscription:", subscription);
-    Toaster.success("subscription",'success')
-    ServiceUtils.postRequest("pushNotification", {subscription:subscription}).then((response) => {
+    const payLoad = {
+      subscription:subscription,
+      notificationData:{
+        message:"Message received",
+        title:"Hey"
+      }
+    }
+    ServiceUtils.postRequest("pushNotification", payLoad).then((response) => {
       if (response.status === "success") {
         Toaster.success("Notification permission enabled");
       } else {

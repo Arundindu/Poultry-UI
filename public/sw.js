@@ -1,12 +1,11 @@
 self.addEventListener("push", function (event) {
-    console.log('Pushing')
-    // const data = event.data.json();
-    const data = {};
+    console.log('Pushing',event)
+    const data = event;
+    // const data = {};
 
     const title = data.title || "New Notification";
     const options = {
-        // body: data.body,
-        body: "Data from Backend",
+        body: data.body,
         icon: "/logo192.png",
         badge: "/logo192.png",
     };
