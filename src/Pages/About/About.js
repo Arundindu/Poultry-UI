@@ -102,8 +102,10 @@ const About = () => {
     const permission = await Notification.requestPermission();
     if (permission !== "granted") {
       console.log("Notification permission denied");
+      Toaster.error('NO PERMISSION','error')
       return;
     }
+    Toaster.success('PERMISSION Step Done','success')
 
     const registration = await navigator.serviceWorker.ready;
 
@@ -111,12 +113,11 @@ const About = () => {
 
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: applicationServerKey,
-      key: "Testing",
-      subscription: "Tested"
+      applicationServerKey: applicationServerKey
     });
 
     console.log("Push Subscription:", subscription);
+    Toaster.success("subscription",'success')
     ServiceUtils.postRequest("pushNotification", subscription).then((response) => {
       if (response.status === "success") {
         Toaster.success("Notification permission enabled");
