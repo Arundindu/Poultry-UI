@@ -10,7 +10,7 @@ self.addEventListener("push", function (event) {
         badge: "/logo192.png",
         data: data,
         actions: [
-            { action: "open", title: "Open" }
+            { action: "markAsRead", title: "Mark as read" }
         ]
     };
     event.waitUntil(self.registration.showNotification(title, options));

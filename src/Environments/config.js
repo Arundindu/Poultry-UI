@@ -1,7 +1,7 @@
-const servicesDomain = "https://one-it.knowledgelens.com/"
-const proxies = {
-  kl_one_it_services: servicesDomain + "kl_one_it_services/"
-}
+// const servicesDomain = "https://one-it.knowledgelens.com/"
+// const proxies = {
+//   kl_one_it_services: servicesDomain + "kl_one_it_services/"
+// }
 
 export const API_ENDPOINTS = {
   "addUser": "addUser",
