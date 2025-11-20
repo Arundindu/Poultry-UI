@@ -42,7 +42,7 @@ const Configuration = () => {
         setTimeout(getTableData, 100);
         if (payload.tabName === 'birdsPrice') {
           const subscriptionPayload = {
-            subscription: localStorage.getItem('subscription'),
+            subscription: JSON.parse(localStorage.getItem('subscription')),
             notificationData: {
               message: `The updated birds price for ${data.date} is ${data.birdsPrice}`,
               title: "Brid's Price Updated"
@@ -58,7 +58,7 @@ const Configuration = () => {
         }
         else if(payload.tabName === 'chickPrice'){
           const subscriptionPayload = {
-            subscription: localStorage.getItem('subscription'),
+            subscription: JSON.parse(localStorage.getItem('subscription')),
             notificationData: {
               message: `The updated chicks price for ${data.date} is ${data.chickPrice}`,
               title: "Chick's Price Updated"
