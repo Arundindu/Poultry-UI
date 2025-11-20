@@ -1,33 +1,49 @@
-// self.addEventListener("push", function (event) {
-//     console.log('Pushing',event)
-    
-//     const data = event || {};
-//     // const data = {};
-
-//     const title = "New Notification";
-//     const options = {
-//         body: 'Data From Backend',
-//         icon: "/logo192.png",
-//         badge: "/logo192.png",
-//     };
-
-//     event.waitUntil(self.registration.showNotification(title, options));
-// });
 self.addEventListener("push", function (event) {
-    console.log("Push event received:", event);
-
     let data = {};
     if (event.data) {
         data = event.data.json(); 
     }
-
     const title = data?.title || "New Notification";
     const options = {
         body: data?.body || "No message",
         icon: "/logo192.png",
         badge: "/logo192.png",
-        data: data
+        data: data,
+        actions: [
+            { action: "open", title: "Open" }
+        ]
     };
-
     event.waitUntil(self.registration.showNotification(title, options));
 });
+// When user clicks notification
+self.addEventListener("notificationclick", function (event) {
+    const payload = event.notification.data;
+    console.log("Notification clicked:", payload);
+
+    event.notification.close();
+
+    if (payload?.url) {
+        event.waitUntil(clients.openWindow(payload.url));
+    }
+});
+// self.addEventListener("notificationclick", (event) => {
+//     event.notification.close();
+
+//     const payload = event.notification.data;
+//     const urlToOpen = payload?.url || "/";
+
+//     event.waitUntil(
+//         clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+//             // If a tab is already open → focus it
+//             for (const client of clientList) {
+//                 if (client.url === urlToOpen && "focus" in client) {
+//                     return client.focus();
+//                 }
+//             }
+//             // Otherwise → open a new tab
+//             if (clients.openWindow) {
+//                 return clients.openWindow(urlToOpen);
+//             }
+//         })
+//     );
+// });

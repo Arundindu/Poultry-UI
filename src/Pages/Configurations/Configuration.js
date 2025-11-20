@@ -40,6 +40,38 @@ const Configuration = () => {
         Toaster.success(response.message || "Success");
         getTabJsonData();
         setTimeout(getTableData, 100);
+        if (payload.tabName === 'birdsPrice') {
+          const subscriptionPayload = {
+            subscription: localStorage.getItem('subscription'),
+            notificationData: {
+              message: `The updated birds price for ${data.date} is ${data.birdsPrice}`,
+              title: "Brid's Price Updated"
+            }
+          }
+          ServiceUtils.postRequest("pushNotification", subscriptionPayload).then((response) => {
+            if (response.status === "success") {
+              Toaster.success("Notification permission enabled");
+            } else {
+              Toaster.error("Failed to save subscription");
+            }
+          });
+        }
+        else if(payload.tabName === 'chickPrice'){
+          const subscriptionPayload = {
+            subscription: localStorage.getItem('subscription'),
+            notificationData: {
+              message: `The updated chicks price for ${data.date} is ${data.chickPrice}`,
+              title: "Chick's Price Updated"
+            }
+          }
+          ServiceUtils.postRequest("pushNotification", subscriptionPayload).then((response) => {
+            if (response.status === "success") {
+              Toaster.success("Notification permission enabled");
+            } else {
+              Toaster.error("Failed to save subscription");
+            }
+          });
+        }
       } else {
         Toaster.error(response.message || "Error");
       }
@@ -163,7 +195,7 @@ const Configuration = () => {
           <div className="modal-dialog w-100 d-flex align-items-center">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">{tableEmittedData.type === 'view' ? 'View' : tableEmittedData.type === 'edit' ? 'Edit' : tableEmittedData.type === 'unblock' ? 'Unblock' : 'Delete' }</h5>
+                <h5 className="modal-title">{tableEmittedData.type === 'view' ? 'View' : tableEmittedData.type === 'edit' ? 'Edit' : tableEmittedData.type === 'unblock' ? 'Unblock' : 'Delete'}</h5>
                 <button type="button" className="close btn-group" data-dismiss="modal" aria-label="Close" onClick={closeModalAndNavigate}>
                   <span aria-hidden="true">&times;</span>
                 </button>

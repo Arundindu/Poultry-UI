@@ -5,9 +5,7 @@ import SideBar from '../../Shared/Components/SideBar/SideBar';
 import { useNavigate } from 'react-router';
 import { Outlet } from "react-router-dom";
 import classNames from 'classnames';
-import { ServiceUtils } from '../../Shared/Utils/ServiceUtils';
-import Toaster from '../../Shared/Utils/Toaster';
-import { CONSTANTS } from '../../Environments/config';
+import { checkAndSubscribeUser } from '../../Shared/Utils/PushNotificationUtils';
 
 const Home = () => {
   const navigate = useNavigate()
@@ -23,6 +21,9 @@ const Home = () => {
       navigate(data.data.label)
     }
   };
+  useEffect(()=>{
+    checkAndSubscribeUser();
+  },[])
 
   return (
     (window && window.innerWidth > 768) ? (
