@@ -30,7 +30,6 @@ const Header = ({ dataFromSidebar }) => {
   const logout = () => {
     navigate('/Login')
     sessionService.clearSession()
-    localStorage.clear()
   }
   const userManual = () => {
     // navigate('/Configurations')

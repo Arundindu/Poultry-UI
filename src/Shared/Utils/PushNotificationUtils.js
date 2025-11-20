@@ -42,20 +42,13 @@ export async function subscribeUserForPush() {
         console.log("Push Subscription:", subscription);
         Toaster.success("subscription", 'success')
         localStorage.setItem('subscription', JSON.stringify(subscription))
-        // const payLoad = {
-        //   subscription:subscription,
-        //   notificationData:{
-        //     message:"Message received",
-        //     title:"Hey"
-        //   }
-        // }
-        // ServiceUtils.postRequest("pushNotification", payLoad).then((response) => {
-        //   if (response.status === "success") {
-        //     Toaster.success("Notification permission enabled");
-        //   } else {
-        //     Toaster.error("Failed to save subscription");
-        //   }
-        // });
+        ServiceUtils.postRequest("storeSubscription", {subscription:subscription}).then((response) => {
+          if (response.status === "success") {
+            Toaster.success("Subscription Added");
+          } else {
+            Toaster.error("Failed to save subscription");
+          }
+        });
         return subscription;
     } catch (error) {
         console.error("Push Subscription Error", error);

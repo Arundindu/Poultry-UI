@@ -44,6 +44,7 @@ export const API_ENDPOINTS = {
   'setUserRolePageData': 'setUserRolePageData',
   'getSideBarData': 'getSideBarData',
   'pushNotification': 'pushNotification',
+  'storeSubscription': 'storeSubscription',
 };
 
 export const API_ENVIRONMENT = {
@@ -87,6 +88,7 @@ export const API_ENVIRONMENT = {
   'setUserRolePageData': 'dev',
   'getSideBarData': 'dev',
   'pushNotification': 'dev',
+  'storeSubscription': 'dev',
 };
 
 export const MESSAGES = {
