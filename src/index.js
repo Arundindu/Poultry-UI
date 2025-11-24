@@ -20,20 +20,32 @@ root.render(
 reportWebVitals();
 
 // if ("serviceWorker" in navigator) {
-//   navigator.serviceWorker.register("/sw.js").then(() => {
-//     console.log("Service Worker Registered");
-//   });
+//   navigator.serviceWorker.register("/sw.js")
+//     .then(() => {
+//       console.log("SW registered")
+//       Toaster.success('SW Registered', 'success')
+//     })
+//     .catch((err) => {
+//       console.log("SW registration failed", err)
+//       Toaster.error('SW registration failed', 'error')
+//     });
 // }
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js")
-    .then(() => {
-      console.log("SW registered")
-      Toaster.success('SW Registered', 'success')
-    })
-    .catch((err) => {
-      console.log("SW registration failed", err)
-      Toaster.error('SW registration failed', 'error')
-    });
-}
+  window.addEventListener("load", () => {
 
+    // PWA SERVICE WORKER (new)
+    navigator.serviceWorker.register("/pwa-sw.js").then(() => {
+      Toaster.success("PWA Service Worker registered", "success");
+    }).catch((err) => {
+      Toaster.error("PWA SW registration failed", "error");
+    });
+
+    // PUSH NOTIFICATION SERVICE WORKER (existing sw.js)
+    navigator.serviceWorker.register("/sw.js").then(() => {
+      Toaster.success("Push Notification SW registered", "success");
+    }).catch((err) => {
+      Toaster.error("Push Notification SW registration failed", "error");
+    });
+  });
+}
