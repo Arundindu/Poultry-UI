@@ -1,7 +1,7 @@
 self.addEventListener("push", function (event) {
     let data = {};
     if (event.data) {
-        data = event.data.json(); 
+        data = event.data.json();
     }
     const title = data?.title || "New Notification";
     const options = {
