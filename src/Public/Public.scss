@@ -72,3 +72,63 @@
 .publicCard {
     font-size: large;
 }
+
+.price-card {
+    padding: 20px 24px;
+}
+
+.price-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hen-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.price-card-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #324860;
+    font-weight: 600;
+}
+
+.price-value {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    color: #111827;
+    margin: 12px 0;
+}
+
+.price-value span {
+    font-size: 18px;
+    color: #6b7280;
+}
+
+.price-diff {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.price-diff span {
+    font-weight: 400;
+    color: #6b7280;
+}
+
+.price-diff.positive {
+    color: #16a34a;
+}
+
+.price-diff.negative {
+    color: #dc2626;
+}
+
+.last-updated {
+    text-align: center;
+    font-size: 15px;
+    color: #6b7280;
+}

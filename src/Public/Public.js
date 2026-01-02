@@ -1,14 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Public.scss'
 import hen from './../Assets/Images/hen.jpg'
 import banner from './../Assets/Images/banner.jpg'
+import hen_icon from './../Assets/Images/hen_icon.png'
+import classNames from 'classnames'
 import { useNavigate } from 'react-router-dom'
 import { ServiceUtils } from '../Shared/Utils/ServiceUtils'
 import Toaster from '../Shared/Utils/Toaster'
+import Table from '../Shared/Table/Table'
 
 const Public = () => {
 
+  const [birdsPrice, setBirdsPrice] = useState([])
+  const [marqueeData, setMarqueeData] = useState({})
   const navigate = useNavigate()
+
+  useEffect(() => {
+    getBirdsPrice()
+  }, [])
+
+  const getBirdsPrice = () => {
+    const payload = {
+      userName: "Arun",
+      tabName: "birdsPrice"
+    }
+    ServiceUtils.postRequest('publicData', payload, false).then((response) => {
+      try {
+        if (response.status === "success" && response.tableData) {
+          setBirdsPrice(response.tableData)
+          setMarqueeData(response.marquee)
+          console.log(response.tableData)
+        } else {
+          Toaster.error(response?.message || "Error while processing...! Try again after sometime..!")
+        }
+      } catch (error) {
+        Toaster.error(response?.message || "Error while processing...! Try again after sometime..!")
+      }
+    })
+  }
 
   const routeToLogin = () => {
     navigate('/Login')
@@ -55,16 +84,44 @@ const Public = () => {
               </div>
             </div>
           </div>
-          {/* <div className='col-md-4 p-2'>
-            <div className='card'>
-              Test
-            </div>
-          </div> */}
         </div>
+        {birdsPrice && birdsPrice.headerContent && (
+          <div className='row m-1'>
+            <div className='col-md-8 col-12'>
+              <h3>Monthly Bird's Price Report</h3>
+              <Table key={JSON.stringify(birdsPrice)} data={birdsPrice} />
+            </div>
+            <div className='col-md-4 col-12'>
+              <div className='card price-card'>
+                {/* <div class="price-card"> */}
+                  <div class="price-card-header">
+                    <img src={hen_icon} alt="Hen" class="hen-icon" />
+                    <h3>Today's Bird Price</h3>
+                  </div>
+                  <hr/>
+                  <div class="price-value">₹ {marqueeData.birdsPrice} <span>/ kg</span></div>
+                  <div className={classNames('price-diff',((birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) ? "positive" : (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice < 0) ? 'negative' : ''))}>
+                    {(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) ? "▲ +" +(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice) : (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice < 0 ? "▼ -"+(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) : 0)}<span> vs {birdsPrice.bodyContent[1].date}</span>
+                  </div>
+                  <hr/>
+                  <div class="last-updated">
+                    Last updated for: {marqueeData.date}
+                  </div>
+                {/* </div> */}
+
+                {/* <div className='publicCard'>
+                  <div><img src=""/>Today's Bird Price</div>
+                  <div>148/kg</div>
+                  <div>Last Updated: </div>
+                </div> */}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className='footerSection d-flex align-items-center'>
         <marquee behaviour="scroll" direction="left" scrollamount="8" onMouseOver={(e) => e.target.stop()}
-          onMouseOut={(e) => e.target.start()}>Dear Customers, The updated bird's price for 08-10-2024 is 126. Please login to look out for orders, availability, cost and average weight.</marquee>
+          onMouseOut={(e) => e.target.start()}>Dear Customers, The updated bird's price for {marqueeData.date} is {marqueeData.birdsPrice}. Please login to look out for orders, availability, cost and average weight.</marquee>
       </div>
     </div>
   )

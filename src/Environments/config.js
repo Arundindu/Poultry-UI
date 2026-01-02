@@ -45,6 +45,7 @@ export const API_ENDPOINTS = {
   'getSideBarData': 'getSideBarData',
   'pushNotification': 'pushNotification',
   'storeSubscription': 'storeSubscription',
+  'publicData': 'publicData',
 };
 
 export const API_ENVIRONMENT = {
@@ -89,6 +90,7 @@ export const API_ENVIRONMENT = {
   'getSideBarData': 'dev',
   'pushNotification': 'dev',
   'storeSubscription': 'dev',
+  'publicData': 'dev',
 };
 
 export const MESSAGES = {
