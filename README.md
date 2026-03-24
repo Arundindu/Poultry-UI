@@ -1,6 +1,6 @@
 # POULTRY
 User centric application where farm owner can have a track of their business w.r.to chicks bought, hens sold, profits and losses and customer wise total sales.
-
+You can login to the portal through the provided URL and can access it as a PWA [D C S REDDY FARMS](https://dcsreddyfarms.vercel.app/#/Public)
 
 # Getting Started with Create React App
 
