@@ -93,35 +93,39 @@ const Public = () => {
             </div>
             <div className='col-md-4 col-12'>
               <div className='card price-card'>
-                {/* <div class="price-card"> */}
-                  <div class="price-card-header">
-                    <img src={hen_icon} alt="Hen" class="hen-icon" />
-                    <h3>Today's Bird Price</h3>
-                  </div>
-                  <hr/>
-                  <div class="price-value">₹ {marqueeData.birdsPrice} <span>/ kg</span></div>
-                  <div className={classNames('price-diff',((birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) ? "positive" : (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice < 0) ? 'negative' : ''))}>
-                    {(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) ? "▲ +" +(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice) : (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice < 0 ? "▼ -"+(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) : 0)}<span> vs {birdsPrice.bodyContent[1].date}</span>
-                  </div>
-                  <hr/>
-                  <div class="last-updated">
-                    Last updated for: {marqueeData.date}
-                  </div>
-                {/* </div> */}
-
-                {/* <div className='publicCard'>
-                  <div><img src=""/>Today's Bird Price</div>
-                  <div>148/kg</div>
-                  <div>Last Updated: </div>
-                </div> */}
+                <div class="price-card-header">
+                  <img src={hen_icon} alt="Hen" class="hen-icon" />
+                  <h3>Today's Bird Price</h3>
+                </div>
+                <hr />
+                <div class="price-value">₹ {marqueeData.birdsPrice} <span>/ kg</span></div>
+                <div className={classNames('price-diff', ((birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) ? "positive" : (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice < 0) ? 'negative' : ''))}>
+                  {(birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice > 0) ? "▲ +" + (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice) : (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice < 0 ? "▼ " + (birdsPrice.bodyContent[0].birdsPrice - birdsPrice.bodyContent[1].birdsPrice) : 0)}<span> vs {birdsPrice.bodyContent[1].date}</span>
+                </div>
+                <hr />
+                <div class="last-updated">
+                  Last updated for: {marqueeData.date}
+                </div>
               </div>
             </div>
           </div>
         )}
       </div>
       <div className='footerSection d-flex align-items-center'>
-        <marquee behaviour="scroll" direction="left" scrollamount="8" onMouseOver={(e) => e.target.stop()}
-          onMouseOut={(e) => e.target.start()}>Dear Customers, The updated bird's price for {marqueeData.date} is {marqueeData.birdsPrice}. Please login to look out for orders, availability, cost and average weight.</marquee>
+        <div
+          className="marquee-container"
+          onMouseEnter={(e) => {
+            e.currentTarget.querySelector('.marquee-text').style.animationPlayState = 'paused';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.querySelector('.marquee-text').style.animationPlayState = 'running';
+          }}
+        >
+          <div className="marquee-text">
+            Dear Customers, The updated bird's price for {marqueeData.date} is {marqueeData.birdsPrice}.
+            Please login to look out for orders, availability, cost and average weight.
+          </div>
+        </div>
       </div>
     </div>
   )
